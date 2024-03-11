@@ -1,0 +1,9 @@
+hyprland
+flatpak with hyprland
+built from source
+emacs setup
+lutris,steam setup
+custom linux kernel
+python pgo lto setup
+cuda cudnn pytorch setup
+lunarvim setup
