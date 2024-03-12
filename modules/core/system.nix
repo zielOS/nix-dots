@@ -55,6 +55,7 @@
     git
     xfce.thunar
     wget
+    emacs29-pgtk
     lazygit
     linux-firmware
     nodejs

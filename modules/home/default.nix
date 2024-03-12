@@ -1,5 +1,3 @@
-{ inputs, pkgs, config, lib, self,...}:
-
 {
   home = {
     username = "ahsan";
@@ -10,7 +8,7 @@
 
   imports = [
     ./ags_setup.nix
-    #./doom
+    #./emacs
     ./foot
     ./git
     ./gtk 
@@ -23,6 +21,5 @@
     ./packages.nix
     ./zsh
     ./zathura
-    inputs.hyprland.homeManagerModules.default
   ];
 }

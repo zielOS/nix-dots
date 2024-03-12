@@ -4,6 +4,7 @@ let
   inputs = self.inputs;
   bootloader = ../modules/core/bootloader.nix;
   core = ../modules/core;
+  emacs = ../modules/emacs;
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
   chaotic_nix = chaotic.homeManagerModules.default;
@@ -22,7 +23,6 @@ let
       inherit self;
       inherit asztal;
       inherit chaotic_nix;
-/*       inherit doom_emacs; */
     };
     users.ahsan = {
       imports = [ 
@@ -42,6 +42,7 @@ in {
         ./workstation/hardware-configuration.nix
         bootloader 
         nvidia
+        emacs
         wayland
         hmModule
         {inherit home-manager;}

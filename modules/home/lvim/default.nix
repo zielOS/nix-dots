@@ -2,7 +2,7 @@
 
 { 
   home = { 
-    packages = with pkgs; [ lunarvim neovim ];
+    packages = with pkgs; [ lunarvim neovim vimPlugins.nvim-treesitter ];
     file.".config/lvim/config.lua".source  = ./config.lua;
   };
 }
