@@ -10,7 +10,7 @@ let
   pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   asztal = pkgs.callPackage ../modules/ags { inherit inputs; };
   hmModule = inputs.home-manager.nixosModules.home-manager;
-  doom_emacs = nix-doom-emacs.hmModule;
+  /* doom_emacs = nix-doom-emacs.hmModule; */
 
   shared = [core];
 
@@ -22,7 +22,7 @@ let
       inherit self;
       inherit asztal;
       inherit chaotic_nix;
-      inherit doom_emacs;
+/*       inherit doom_emacs; */
     };
     users.ahsan = {
       imports = [ 

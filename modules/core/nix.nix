@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, overlay, ... }:
 
 {
 
@@ -15,19 +15,24 @@
       allowBroken = true;
     };
 
+    overlays = [
+      inputs.rust-overlay.overlays.default
+      inputs.nur.overlay
+      inputs.emacs-overlay.overlay
+      #inputs.nix-doom-emacs.overlay
+    ];
+
     
- hostPlatform = {
-   system = "x86_64-linux";
-   config = "x86_64-unknown-linux-gnu";
-
- };
-
-};
+    hostPlatform = {
+      system = "x86_64-linux";
+      config = "x86_64-unknown-linux-gnu";
+    };
+  };
 
 # faster rebuilding
   documentation = {
     enable = true;
-    doc.enable = false;
+    doc.enable = true;
     man.enable = true;
     dev.enable = false;
   };

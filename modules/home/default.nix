@@ -10,6 +10,7 @@
 
   imports = [
     ./ags_setup.nix
+    #./doom
     ./foot
     ./git
     ./gtk 
