@@ -18,7 +18,7 @@
     ]
   };
   home = { 
-    packages = with pkgs; [ neovim lunarvim ];
+    packages = with pkgs; [ lunarvim ];
     file.".config/lvim/config.lua".source  = ./config.lua;
   };
 }
