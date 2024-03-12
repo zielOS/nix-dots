@@ -22,12 +22,7 @@
 
  };
 
-    overlays = with inputs; [
-      rust-overlay.overlays.default
-      nur.overlay
-      emacs-overlay.overlay
-    ];
-  };
+};
 
 # faster rebuilding
   documentation = {
