@@ -17,7 +17,7 @@
     ./hyprland
     #./mako
     ./mpv
-    #./nvim
+    ./lvim
     ./starship
     ./gtk
     ./packages.nix

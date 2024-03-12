@@ -14,7 +14,6 @@
     pyprland
     hyprshade
     hyprnome
-    lunarvim
     git
     cached-nix-shell 
     typescript
