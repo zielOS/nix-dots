@@ -22,6 +22,13 @@ in
     terminal = false;
   };
 
+
+  home = { 
+    packages = with pkgs; [ pyprland hyprshade ];
+    file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
+    file.".config/hypr/pyprland.json".source = ./pyprland.json;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = hyprland;
@@ -57,7 +64,6 @@ in
         kb_layout = "us";
         follow_mouse = 1;
         touchpad = {
-          natural_scroll = "yes";
           disable_while_typing = true;
           drag_lock = true;
         };
