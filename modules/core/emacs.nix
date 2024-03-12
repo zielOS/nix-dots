@@ -2,7 +2,7 @@
 {
   environment.systemPackages = [
     (pkgs.emacsWithPackagesFromUsePackage {
-      package = pkgs.emacs-pgtk;  # replace with pkgs.emacsPgtk, or another version if desired.
+      package = pkgs.emacs29-pgtk;  # replace with pkgs.emacsPgtk, or another version if desired.
       config = ../home/emacs/init.el;
       alwaysTangle = true;
       # config = path/to/your/config.org; # Org-Babel configs also supported
