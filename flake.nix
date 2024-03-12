@@ -10,7 +10,7 @@
     nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     hyprland.url = "github:hyprwm/Hyprland/";
-
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     
     nur.url = "github:nix-community/NUR";
@@ -34,7 +34,9 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
- 
+
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +44,7 @@
     };
 
   };
-  outputs = {self, nixpkgs, ...} @ inputs: let
+  outputs = {self, nixpkgs, chaotic, nix-doom-emacs, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };

@@ -1,4 +1,4 @@
-{ nixpkgs, self, ... }:
+{ nixpkgs, self, chaotic, nix-doom-emacs, ... }:
 
 let
   inputs = self.inputs;
@@ -6,9 +6,11 @@ let
   core = ../modules/core;
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
+  chaotic_nix = chaotic.homeManagerModules.default;
   pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   asztal = pkgs.callPackage ../modules/ags { inherit inputs; };
   hmModule = inputs.home-manager.nixosModules.home-manager;
+  doom_emacs = nix-doom-emacs.hmModule;
 
   shared = [core];
 
@@ -19,6 +21,8 @@ let
       inherit inputs;
       inherit self;
       inherit asztal;
+      inherit chaotic_nix;
+      inherit doom_emacs;
     };
     users.ahsan = {
       imports = [ 

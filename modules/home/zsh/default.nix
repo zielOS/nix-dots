@@ -14,7 +14,7 @@ programs.zsh = {
 
   shellAliases = {
     ll = "ls -l";
-    update = "sudo nixos-rebuild switch";
+    update = "sudo nixos-rebuild switch --flake .#workstation -I ~/nix-dots/";
   };
   history.size = 10000;
   history.path = "${config.xdg.dataHome}/zsh/history";
