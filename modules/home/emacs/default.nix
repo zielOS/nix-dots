@@ -4,28 +4,7 @@
     enable = true;
     package = with pkgs; (
       (emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (
-        epkgs: [epkgs.use-package epkgs.no-littering epkgs.all-the-icons epkgs.all-the-icons-dired
-              epkgs.cape
-              epkgs.consult
-              epkgs.corfu
-              epkgs.dashboard
-              epkgs.diminish
-              epkgs.dired-open
-              epkgs.peep-dired
-              epkgs.dired-sidebar
-              epkgs.dirvish
-              epkgs.drag-stuff
-              epkgs.eglot
-              epkgs.embark
-              epkgs.embark-consult
-              epkgs.evil
-              epkgs.evil-collection
-              epkgs.flycheck
-              epkgs.general
-              epkgs.git-timemachine
-              epkgs.magit
-              epkgs.hl-todo
-              epkgs.aggressive-indent ])
+        epkgs: with epkgs; [ use-package no-littering all-the-icons all-the-icons-dired cape consult corfu dashboard diminish dired-open peep-dired dired-sidebar dirvish drag-stuff eglot embark embark-consult evil evil-collection flycheck general git-timemachine magit hl-todo aggressive-indent ])
     );
   };
 }
