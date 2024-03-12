@@ -333,21 +333,6 @@ This package implements hiding or abbreviation of the modeline displays (lighter
 
 * EGLOT
 
-#+begin_src emacs-lisp
-(use-package eglot
-  )
-#+end_src
-
-#+begin_src emacs-lisp
-(use-package eglot-booster
-  :ensure t
-  :straight (:type git :host github :repo "jdtsmith/eglot-booster")
-  :after eglot
-  :config
-  (eglot-booster-mode))
-
-(with-eval-after-load 'eglot
-  (setq completion-category-defaults nil))
 
 #+end_src
 
