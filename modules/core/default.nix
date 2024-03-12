@@ -11,6 +11,6 @@
     ./system.nix
     ./users.nix
     ./zsh.nix
-    #./emacs.nix
+    ./emacs.nix
    ];
 }
