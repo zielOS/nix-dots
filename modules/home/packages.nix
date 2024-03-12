@@ -6,9 +6,14 @@
   nixpkgs.config.allowBroken = true;
   home.packages = with pkgs; [
     alacritty
+    insync
+    kitty
     lutris
     brave
-    neovim
+    fastfetch
+    pyprland
+    hyprshade
+    hyprnome
     lunarvim
     git
     cached-nix-shell 
@@ -26,11 +31,10 @@
     pymol
     xournalpp
     imagemagick
-    transmission-gtk
+    deluge
     fd
     jq 
     lm_sensors
-    spotify
     catppuccin-gtk
   ];
 }

@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [lazygit];
+  home.packages = with pkgs; [zsh-forgit gitflow];
   programs.git = {
     enable = true;
-    userName = "zielOS";
+    userName = "ahsanur041";
     userEmail = "ahsanur041@gmail.com";
     #signing = {
     #  key = "056CFD15A9F99B0E";

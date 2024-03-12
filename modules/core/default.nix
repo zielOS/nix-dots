@@ -10,5 +10,7 @@
     ./polkit.nix
     ./system.nix
     ./users.nix
+    ./zsh.nix
+    #./emacs.nix
    ];
 }

@@ -1,55 +1,95 @@
-{config, pkgs, ... }:
-
 {
+  pkgs,
+  theme,
+  ...
+}: {
   home.packages = with pkgs; [
     libsixel
+    # for displaying images
   ];
-
   programs.foot = {
     enable = true;
-    server.enable = true;
+    server.enable = false;
     settings = {
       main = {
-        pad="8x8";
-        initial-window-size-chars="82x23";
-        resize-delay-ms="50";
-        font = "JetBrainsMono Nerd Font:size=16";
-        dpi-aware = "no";
-      };
-      scrollback = {
-        lines = "1000";
-        multiplier = "3.0";
+        app-id = "foot";
+        title = "foot";
+        locked-title = "no";
+        term = "xterm-256color";
+        font = "monospace:size=10.5";
+        vertical-letter-offset = "-0.75";
+        pad = "12x21 center";
+        resize-delay-ms = 100;
+        notify = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";
+        selection-target = "primary";
+        # box-drawings-uses-font-glyphs = "yes";
+        dpi-aware = "yes";
+        bold-text-in-bright = "no";
+        word-delimiters = ",│`|:\"'()[]{}<>";
       };
       cursor = {
-        style = "block";
-        blink = "yes";
+        style = "beam";
+        beam-thickness = 2;
+      };
+      scrollback = {
+        lines = 10000;
+        multiplier = 3;
+      };
+
+      bell = {
+        urgent = "yes";
+        notify = "yes";
+        command = "notify-send bell";
+        command-focused = "no";
+      };
+      url = {
+        launch = "xdg-open \${url}";
+        label-letters = "sadfjklewcmpgh";
+        osc8-underline = "url-mode";
+        protocols = "http, https, ftp, ftps, file, gemini, gopher, irc, ircs";
+
+        uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
+      };
+      colors = with theme.colors; {
+        alpha = "0.75";
+        foreground = text;
+        background = base;
+
+        regular0 = surface1;
+        regular1 = red;
+        regular2 = green;
+        regular3 = yellow;
+        regular4 = blue;
+        regular5 = pink;
+        regular6 = teal;
+        regular7 = subtext1;
+
+        bright0 = surface2;
+        bright1 = red;
+        bright2 = green;
+        bright3 = yellow;
+        bright4 = blue;
+        bright5 = pink;
+        bright6 = teal;
+        bright7 = subtext0;
       };
       mouse = {
         hide-when-typing = "yes";
-        alternate-scroll-mode = "yes";
       };
-      colors = {
-        alpha = "0.93";
-        foreground = "c0caf5";
-        background = "1a1b26";
-
-        regular0 = "6e6c7e";  
-        regular1 = "f28fad";  
-        regular2 = "abe9b3";  
-        regular3 = "fae3b0";  
-        regular4 = "96cdfb";  
-        regular5 = "f5c2e7";  
-        regular6 = "89dceb";  
-        regular7 = "d9e0ee"; 
-
-        bright0 = "988ba2";   
-        bright1 = "f28fad";   
-        bright2 = "abe9b3";
-        bright3 = "fae3b0";   
-        bright4 = "96cdfb";   
-        bright5 = "f5c2e7";
-        bright6 = "89dceb";   
-        bright7 = "d9e0ee";
+      key-bindings = {
+        show-urls-launch = "Control+Shift+u";
+        unicode-input = "Control+Shift+i";
+      };
+      mouse-bindings = {
+        selection-override-modifiers = "Shift";
+        primary-paste = "BTN_MIDDLE";
+        select-begin = "BTN_LEFT";
+        select-begin-block = "Control+BTN_LEFT";
+        select-extend = "BTN_RIGHT";
+        select-extend-character-wise = "Control+BTN_RIGHT";
+        select-word = "BTN_LEFT-2";
+        select-word-whitespace = "Control+BTN_LEFT-2";
+        #select-row = "BTN_LEFT-3";
       };
     };
   };

@@ -10,6 +10,7 @@
 
   imports = [
     ./ags_setup.nix
+    #./emacs
     ./foot
     ./git
     ./gtk 
@@ -17,13 +18,11 @@
     #./mako
     ./mpv
     #./nvim
-    #./scripts
+    ./starship
     ./gtk
     ./packages.nix
-    ./shell
-    #./tools
+    ./zsh
     ./zathura
-    #./zsh
     inputs.hyprland.homeManagerModules.default
   ];
 }

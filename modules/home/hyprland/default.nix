@@ -33,15 +33,14 @@ in
       exec-once = [
         "ags -b hypr"
         "hyprctl setcursor Qogir 24"
-        "transmission-gtk"
+        "insync start"
+        "ckb-next"
       ];
 
       monitor = [
-        # "eDP-1, 1920x1080, 0x0, 1"
         "DP-1, 2560x1440@60, 0x0, 1"
         "DP-2, 3440x1440@60, 2560x0, 1"
         "DP-3, 2560x1440@60, 6000x0, 1"
-
       ];
 
       general = {
@@ -51,7 +50,7 @@ in
 
       misc = {
         disable_splash_rendering = true;
-        force_default_wallpaper = 1;
+        force_default_wallpaper = false;
       };
 
       input = {
@@ -105,7 +104,7 @@ in
         mvfocus = binding "SUPER" "movefocus";
         ws = binding "SUPER" "workspace";
         resizeactive = binding "SUPER CTRL" "resizeactive";
-        mvactive = binding "SUPER ALT" "moveactive";
+        mvwindow = binding "SUPER SHIFT" "movewindow";
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
         e = "exec, ags -b hypr";
         arr = [1 2 3 4 5 6 7 8 9];
@@ -118,7 +117,7 @@ in
         ",Print,         ${e} -r 'recorder.screenshot()'"
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, alacritty" # xterm is a symlink, not actually xterm
-        "SUPER, W, exec, firefox"
+        "SUPER, B, exec, brave"
         "SUPER, E, exec, wezterm -e lf"
 
         # youtube
@@ -132,22 +131,24 @@ in
         "SUPER, O, fakefullscreen"
         "SUPER, P, togglesplit"
 
-        (mvfocus "k" "u")
-        (mvfocus "j" "d")
-        (mvfocus "l" "r")
-        (mvfocus "h" "l")
-        (ws "left" "e-1")
-        (ws "right" "e+1")
-        (mvtows "left" "e-1")
-        (mvtows "right" "e+1")
+"CTRL_ALT, left, exec, hyprnome --previous"
+"CTRL_ALT, right, exec, hyprnome"
+"SUPER_CTRL_ALT, left, exec, hyprnome --previous --move"
+"SUPER_CTRL_ALT, right, exec, hyprnome --move"
+
+        (mvfocus "up" "u")
+        (mvfocus "down" "d")
+        (mvfocus "right" "r")
+        (mvfocus "left" "l")
+
         (resizeactive "k" "0 -20")
         (resizeactive "j" "0 20")
         (resizeactive "l" "20 0")
         (resizeactive "h" "-20 0")
-        (mvactive "k" "0 -20")
-        (mvactive "j" "0 20")
-        (mvactive "l" "20 0")
-        (mvactive "h" "-20 0")
+        (mvwindow "up" "u")
+        (mvwindow "down" "d")
+        (mvwindow "right" "r")
+        (mvwindow "left" "l")
       ]
       ++ (map (i: ws (toString i) (toString i)) arr)
       ++ (map (i: mvtows (toString i) (toString i)) arr);

@@ -13,9 +13,6 @@
 
   environment = {
     variables = {
-      NIXOS_OZONE_WL = "1";
-      __GL_GSYNC_ALLOWED = "0";
-      __GL_VRR_ALLOWED = "0";
       _JAVA_AWT_WM_NONEREPARENTING = "1";
       ANKI_WAYLAND = "1";
       DIRENV_LOG_FORMAT = "";
@@ -35,7 +32,6 @@
       XDG_CURRENT_SESSION = "hyprland";
       XDG_SESSION_TYPE = "wayland";
       SDL_VIDEODRIVER = "wayland";
-      WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
       WLR_DRM_NO_ATOMIC = "1";
       WLR_BACKEND = "vulkan";
       WLR_RENDERER = "vulkan";

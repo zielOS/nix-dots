@@ -28,7 +28,7 @@
     };
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      nix-direnv.enable = false;
     };
     tealdeer = {
       enable = true;

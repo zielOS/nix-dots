@@ -20,7 +20,12 @@ let
       inherit self;
       inherit asztal;
     };
-    users.ahsan = import ../modules/home;
+    users.ahsan = {
+      imports = [ 
+        (import ../modules/home) 
+      ];
+      _module.args.theme = import ../theme;
+    }; 
   };
 
 in {

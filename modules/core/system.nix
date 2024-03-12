@@ -27,7 +27,7 @@
 
   # compress half of the ram to use as swap
   zramSwap = {
-    enable = false;
+    enable = true;
     algorithm = "zstd";
   };
   
@@ -63,12 +63,10 @@
     bleachbit
     xfce.xfconf
     gparted
-    transmission-gtk
     python3
     gcc13
     perl
     gnumake
-    neofetch
     rustup
     cmake
     aide

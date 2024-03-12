@@ -43,20 +43,20 @@ const options = mkOptions(OPTIONS, {
         scheme: opt<"dark" | "light">("dark"),
         widget: { opacity: opt(94) },
         border: {
-            width: opt(1),
-            opacity: opt(96),
+            width: opt(3),
+            opacity: opt(100),
         },
 
         shadows: opt(true),
-        padding: opt(6),
-        spacing: opt(4),
-        radius: opt(14),
+        padding: opt(7),
+        spacing: opt(12),
+        radius: opt(11),
     },
 
     transition: opt(200),
 
     font: {
-        size: opt(12),
+        size: opt(11),
         name: opt("JetBrainsMono Nerd Font"),
     },
 
@@ -145,8 +145,8 @@ const options = mkOptions(OPTIONS, {
         maxItem: opt(6),
         favorites: opt([
             [
-                "firefox",
-                "org.gnome.Nautilus",
+                "brave",
+                "Thunar",
                 "org.gnome.Calendar",
                 "obsidian",
                 "discord",
