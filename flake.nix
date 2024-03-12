@@ -44,7 +44,7 @@
     };
 
   };
-  outputs = {self, nixpkgs, chaotic, nix-doom-emacs, ...} @ inputs: let
+  outputs = {self, nixpkgs, chaotic, nix-doom-emacs, home-manager, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };
