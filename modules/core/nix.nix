@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, overlay, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
 
@@ -9,49 +9,16 @@
     defaultPackages = [];
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-    };
-
-    overlays = [
-      inputs.rust-overlay.overlays.default
-      inputs.nur.overlay
-      inputs.emacs-overlay.overlay
-      #inputs.nix-doom-emacs.overlay
-    ];
-
-    
-    hostPlatform = {
-      system = "x86_64-linux";
-      config = "x86_64-unknown-linux-gnu";
-    };
-  };
-
-# faster rebuilding
-  documentation = {
-    enable = true;
-    doc.enable = true;
-    man.enable = true;
-    dev.enable = false;
-  };
-
   nix = {
     gc = {
       automatic = true;
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-    package = pkgs.nixUnstable;
-    # package = pkgs.nixFlakes;
+    # package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
 
-    # Make builds run with low priority so my system stays responsive
-    daemonCPUSchedPolicy = "idle";
-    daemonIOSchedClass = "idle";
-    
-    # pin the registry to avoid downloading and evaling a new nixpkgs version every time
-    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+   
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -77,9 +44,49 @@
       max-jobs = "auto";
       keep-going = true;
       log-lines = 20;
-      extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
+      system-features = [
+        "benchmark" 
+        "big-parallel" 
+        "kvm" 
+        "nixos-test"
+        "recursive-nix"
+        "gccarch-alderlake"
+      ];
+      /* extra-experimental-features = ["nix-command" "ca-derivations"]; */
     };
   };
+
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+    };
+
+    overlays = [
+      inputs.rust-overlay.overlays.default
+      inputs.nur.overlay
+      #inputs.emacs-overlay.overlay
+      #inputs.nix-doom-emacs.overlay
+    ];
+
+    
+    # hostPlatform = {
+    #   gcc.arch = "alderlake";
+    #   gcc.tune = "x";
+    #   system = "x86_64-linux";
+    # };
+  };
+
+# faster rebuilding
+  documentation = {
+    enable = true;
+    doc.enable = true;
+    man.enable = true;
+    dev.enable = false;
+  };
+
+
 
 
 # Autoupdate

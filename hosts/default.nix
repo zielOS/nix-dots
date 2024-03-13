@@ -1,4 +1,4 @@
-{ nixpkgs, self, chaotic, nix-doom-emacs, ... }:
+{ nixpkgs, self, chaotic, ... }:
 
 let
   inputs = self.inputs;
@@ -42,7 +42,6 @@ in {
         ./workstation/hardware-configuration.nix
         bootloader 
         nvidia
-        emacs
         wayland
         hmModule
         {inherit home-manager;}

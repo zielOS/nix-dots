@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     alacritty
     insync
+    python311Packages.jupyter
     kitty
     lutris
     brave

@@ -35,12 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
-
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-
   };
-  outputs = {self, nixpkgs, chaotic, nix-doom-emacs, home-manager, ...} @ inputs: let
+  outputs = {self, nixpkgs, chaotic, home-manager, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };
