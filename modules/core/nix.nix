@@ -76,7 +76,7 @@
 
     localSystem = { 
       system = "x86_64-linux";
-      gcc.arch = "alderlake";
+      #gcc.arch = "alderlake";
     };
 
   };
