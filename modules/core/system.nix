@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
-{
+let
+  nixos = import <nixos> { config = { allowUnfree = true; }; };
+
+in {
   services = {
     dbus = {
       packages = with pkgs; [dconf gcr udisks2];
@@ -13,7 +16,6 @@
     '';
     udisks2.enable = true;
     gvfs.enable = true;
-    # profile-sync-daemon
     psd = {
       enable = true;
       resyncTimer = "10m";
@@ -55,26 +57,16 @@
     git
     xfce.thunar
     wget
-    emacs29-pgtk
     lazygit
     linux-firmware
     nodejs
-    gh
-    linuxHeaders
+    btop
     bleachbit
     xfce.xfconf
-    gparted
-    python3
-    gcc13
-    perl
     gnumake
-    rustup
     cmake
-    aide
     fd
     neovim
-    starship
-    s-tui
     chkrootkit
     killall
     vulkan-loader

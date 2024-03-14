@@ -10,20 +10,6 @@
       # config = ./emacs.org;
       config = ./init.el;
 
-      # Whether to include your config as a default init file.
-      # If being bool, the value of config is used.
-      # Its value can also be a derivation like this if you want to do some
-      # substitution:
-      #   defaultInitFile = pkgs.substituteAll {
-      #     name = "default.el";
-      #     src = ./emacs.el;
-      #     inherit (config.xdg) configHome dataHome;
-      #   };
-      defaultInitFile = true;
-
-      # Package is optional, defaults to pkgs.emacs
-      package = pkgs.emacs29-pgtk;
-
       # By default emacsWithPackagesFromUsePackage will only pull in
       # packages with `:ensure`, `:ensure t` or `:ensure <package name>`.
       # Setting `alwaysEnsure` to `true` emulates `use-package-always-ensure`

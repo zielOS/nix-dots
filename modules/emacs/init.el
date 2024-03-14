@@ -806,10 +806,10 @@
   :diminish
   :hook org-mode prog-mode)
 
-(use-package savehist
-  :ensure t
-  :init
-  (savehist-mode))
+;; (use-package savehist
+;;   :ensure t
+;;   :init
+;;   (savehist-mode))
 
 (use-package vterm
   :ensure t

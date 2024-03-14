@@ -124,7 +124,7 @@ in
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, alacritty" # xterm is a symlink, not actually xterm
         "SUPER, B, exec, brave"
-        "SUPER, E, exec, wezterm -e lf"
+        "SUPER, E, exec, emacsclient -c -a 'emacs'"
 
         # youtube
         ", XF86Launch1,  exec, ${yt}"

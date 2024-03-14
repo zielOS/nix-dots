@@ -21,8 +21,6 @@
 
 (setq native-comp-async-report-warnings-errors nil)
 
-(use-package app-launcher
-  :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
 
 ;; emacsclient -cF "((visibility . nil))" -e "(emacs-run-launcher)"
 
@@ -600,8 +598,6 @@ completes or is canceled."
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
   (marginalia-mode 1))
-
-(straight-use-package 'nerd-icons-completion)
 
 (use-package doom-modeline
   

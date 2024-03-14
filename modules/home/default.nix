@@ -8,7 +8,7 @@
 
   imports = [
     ./ags_setup.nix
-    ./emacs
+    #./emacs
     ./foot
     ./git
     ./gtk 

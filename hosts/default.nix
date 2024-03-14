@@ -40,7 +40,8 @@ in {
       [
         {networking.hostName = "workstation";}
         ./workstation/hardware-configuration.nix
-        bootloader 
+        bootloader
+        emacs
         nvidia
         wayland
         hmModule

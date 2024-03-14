@@ -1,7 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-
   environment = {
   # set channels (backwards compatibility)
     # we need git for flakes
@@ -15,10 +14,15 @@
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-    # package = pkgs.nixUnstable;
-    package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable;
+    #package = pkgs.nixFlakes;
 
-   
+    # Make builds run with low priority so my system stays responsive
+    # daemonCPUSchedPolicy = "idle";
+    # daemonIOSchedClass = "idle";
+
+    # pin the registry to avoid downloading and evaling a new nixpkgs version every time
+    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -26,10 +30,10 @@
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
-      experimental-features = nix-command flakes recursive-nix
-      keep-outputs = true
-      warn-dirty = false
-      keep-derivations = true
+      experimental-features = nix-command flakes
+      keep-outputs = false
+      warn-dirty = true
+      keep-derivations = false
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
@@ -41,41 +45,40 @@
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
       sandbox = true;
-      max-jobs = "auto";
+      max-jobs = 2;
+      cores = 12;
       keep-going = true;
-      log-lines = 20;
+      log-lines = 50;
       system-features = [
-        "benchmark" 
         "big-parallel" 
-        "kvm" 
-        "nixos-test"
-        "recursive-nix"
         "gccarch-alderlake"
       ];
-      /* extra-experimental-features = ["nix-command" "ca-derivations"]; */
+      extra-experimental-features = ["flakes" "nix-command" "ca-derivations"];
     };
   };
-
 
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowBroken = true;
+      allowBroken = false;
+      permittedInsecurePackages = [
+        "openssl-1.1.1u"
+        "electron-25.9.0"
+      ];
     };
 
-    overlays = [
-      inputs.rust-overlay.overlays.default
-      inputs.nur.overlay
-      #inputs.emacs-overlay.overlay
+    overlays = with inputs; [
+      rust-overlay.overlays.default
+      nur.overlay
+      emacs-overlay.overlay
       #inputs.nix-doom-emacs.overlay
     ];
 
-    
-    # hostPlatform = {
-    #   gcc.arch = "alderlake";
-    #   gcc.tune = "x";
-    #   system = "x86_64-linux";
-    # };
+    localSystem = { 
+      system = "x86_64-linux";
+      gcc.arch = "alderlake";
+    };
+
   };
 
 # faster rebuilding

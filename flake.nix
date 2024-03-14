@@ -35,6 +35,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
   };
   outputs = {self, nixpkgs, chaotic, home-manager, ...} @ inputs: let
     system = "x86_64-linux";
