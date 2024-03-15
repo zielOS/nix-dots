@@ -16,8 +16,8 @@
     "kernel.unprivileged_bpf_disabled" = 1;
     "kernel.yama.ptrace_scope" = 2;
     "kernel.kptr_restrict" = 2;
-    "kernel.sysrq" = 0;
-    "net.core.bpf_jit_enable" = false;
+    # "kernel.sysrq" = 0;
+    # "net.core.bpf_jit_enable" = false;
     "kernel.ftrace_enabled" = false;
     "net.ipv4.conf.all.log_martians" = true;
     "net.ipv4.conf.all.rp_filter" = "1";
@@ -40,7 +40,7 @@
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "cake";
-    "net.core.bpf_jit_harden" = 2;
+/*     "net.core.bpf_jit_harden" = 2; */
     "net.ipv4.conf.default.accept_source_route" = 0;
   };
 

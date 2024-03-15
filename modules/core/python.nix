@@ -8,7 +8,10 @@ let
     packageOverrides = python-self: python-super: {
       curio = python-super.curio.overridePythonAttrs (oldAttrs: {
         doCheck = false;
-      }); 
+      });
+      cffi = python-super.cffi.overridePythonAttrs (oldAttrs: {
+        doCheck = false;
+      });
     };
   };
   pyPkgs = python3optimized.pkgs;

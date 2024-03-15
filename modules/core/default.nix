@@ -12,6 +12,6 @@
     ./system.nix
     ./users.nix
     ./zsh.nix
-    #./emacs.nix
+    ./hardening.nix
    ];
 }

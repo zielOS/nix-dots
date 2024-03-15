@@ -15,6 +15,7 @@
     };
   };
 
+
   services = {
     greetd = {
       enable = true;

@@ -2,8 +2,6 @@
 
 {
   environment = {
-  # set channels (backwards compatibility)
-    # we need git for flakes
     systemPackages = [pkgs.git];
     defaultPackages = [];
   };
@@ -40,20 +38,17 @@
     settings = {
       flake-registry = "/etc/nix/registry.json";
       auto-optimise-store = true;
-      # remove for building packages
-      builders-use-substitutes = true;
+      builders-use-substitutes = false;
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
       sandbox = true;
       max-jobs = "auto";
-      cores = 12;
       keep-going = true;
       log-lines = 50;
       system-features = [
         "big-parallel" 
-        /* "gccarch-alderlake" */
+        "gccarch-alderlake"
       ];
-      # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
@@ -89,10 +84,10 @@
       #inputs.nix-doom-emacs.overlay
     ];
 
-    # localSystem = { 
-    #   system = "x86_64-linux";
-    #   #gcc.arch = "alderlake";
-    # };
+    localSystem = { 
+      system = "x86_64-linux";
+      #gcc.arch = "alderlake"; 
+    };
 
   };
 
@@ -104,14 +99,10 @@
     dev.enable = false;
   };
 
-
-
-
 # Autoupdate
   system.autoUpgrade = {
     enable = true;
   };
 
   system.stateVersion = "24.05"; # Dont touch this
-
 }
