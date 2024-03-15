@@ -14,6 +14,7 @@ with pkgs; {
   grep = getExe ripgrep;
   wget = "wget --hsts-file=\"${config.xdg.dataHome}/wget-hsts\"";
   fzf = getExe skim;
+  la = "lsd -a"
   untar = "tar -xvf";
   untargz = "tar -xzf";
   MANPAGER = "sh -c 'col -bx | bat -l man -p'";

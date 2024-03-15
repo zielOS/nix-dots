@@ -15,6 +15,7 @@
     pyprland
     hyprshade
     hyprnome
+    lsd
     git
     cached-nix-shell 
     typescript

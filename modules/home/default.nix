@@ -8,8 +8,8 @@
 
   imports = [
     ./ags_setup.nix
-    #./emacs
-    ./foot
+    ./dev.nix
+    ./emacs
     ./git
     ./gtk 
     ./hyprland

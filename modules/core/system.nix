@@ -44,12 +44,14 @@ in {
     XDG_BIN_HOME    = "\${HOME}/.local/bin";
     NPM_HOME = "\${HOME}/.npm-global/bin";
     HYPRSHOT_DIR =  "\${HOME}/Pictures";
+    DOOM_DIR =  "\${HOME}/.emacs.d/bin";
     
     #NIX_PATH = "\${HOME}/nixpkgs/lib/systems/architectures.nix ";
 
     PATH = [
       "\${XDG_BIN_HOME}"
       "\${NPM_HOME}"
+      "\${DOOM_DIR}"
     ];	
 
   };
