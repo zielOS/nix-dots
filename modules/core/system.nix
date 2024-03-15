@@ -56,7 +56,7 @@ in {
 
   };
   environment.systemPackages = with pkgs; [
-    git
+    cachix
     xfce.thunar
     wget
     lazygit
@@ -75,6 +75,8 @@ in {
     vulkan-validation-layers
     vulkan-tools
     nvidia-vaapi-driver
+    tealdeer
+    tree
   ];
 
   environment.etc = {

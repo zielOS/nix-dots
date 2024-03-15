@@ -20,6 +20,7 @@
       powerManagement.enable = true;
       modesetting.enable = true;
     };
+    opengl.setLdLibraryPath = true;
     opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 }
