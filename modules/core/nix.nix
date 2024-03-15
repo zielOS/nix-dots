@@ -51,7 +51,7 @@
       log-lines = 50;
       system-features = [
         "big-parallel" 
-        "gccarch-alderlake"
+        /* "gccarch-alderlake" */
       ];
       extra-experimental-features = ["flakes" "nix-command" "ca-derivations"];
     };
@@ -74,10 +74,10 @@
       #inputs.nix-doom-emacs.overlay
     ];
 
-    localSystem = { 
-      system = "x86_64-linux";
-      #gcc.arch = "alderlake";
-    };
+    # localSystem = { 
+    #   system = "x86_64-linux";
+    #   #gcc.arch = "alderlake";
+    # };
 
   };
 
