@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs, ... }:
 
 let
   nixos = import <nixos> { config = { allowUnfree = true; }; };
 
 in {
+
   services = {
     dbus = {
       packages = with pkgs; [dconf gcr udisks2];
@@ -61,6 +62,7 @@ in {
     wget
     lazygit
     linux-firmware
+    nix
     nodejs
     btop
     bleachbit
@@ -68,7 +70,6 @@ in {
     gnumake
     cmake
     fd
-    neovim
     chkrootkit
     killall
     vulkan-loader
@@ -77,6 +78,8 @@ in {
     nvidia-vaapi-driver
     tealdeer
     tree
+    sage
+    element-desktop-wayland
   ];
 
   environment.etc = {

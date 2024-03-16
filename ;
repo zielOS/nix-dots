@@ -107,7 +107,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "./art/ascii.txt")  ;; use custom image as banner
+  (setq dashboard-startup-banner "~/.config/emacs/art/ascii.txt")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
@@ -783,7 +783,8 @@
   (setq shell-file-name "/usr/bin/zsh"
         vterm-max-scrollback 5000))
 
-(use-package vterm-toggle 
+(use-package vterm-toggle
+  
   :after vterm
   :config
   ;; When running programs in Vterm and in 'normal' mode, make sure that ESC
@@ -805,19 +806,23 @@
                   (reusable-frames . visible)
                   (window-height . 0.4))))
 
+(use-package catppuccin-theme
+  )
 (load-theme 'catppuccin :no-confirm)
 (catppuccin-set-color 'base "#1E1E2E") ;; change base to #000000 for the currently active flavor
 (catppuccin-set-color 'crust "#11111B" 'mocha) ;; change crust to #222222 for frappe
 (catppuccin-reload)
 
-(use-package tide  
+(use-package tide
+  
   :after (company flycheck)
   :hook ((typescript-ts-mode . tide-setup)
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
 
-(use-package vertico 
+(use-package vertico
+  
   :bind (:map vertico-map
          ("C-j" . vertico-next)
          ("C-k" . vertico-previous)
@@ -829,7 +834,8 @@
   :init
   (vertico-mode))
 
-(use-package which-key 
+(use-package which-key
+  
   :init
   (which-key-mode 1)
   :diminish

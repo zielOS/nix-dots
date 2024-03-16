@@ -99,6 +99,10 @@
 
   systemd.coredump.enable = false;
 
+  services = { 
+    jitterentropy-rngd.enable = true;
+    haveged.enable = true;
+    sysstat.enable = true; };
 
   security = {
     protectKernelImage = false;

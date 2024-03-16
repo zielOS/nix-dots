@@ -9,6 +9,7 @@
       #     support.
       # config = ./emacs.org;
       config = ./init.el;
+      defaultInitFile = true;
 
       # By default emacsWithPackagesFromUsePackage will only pull in
       # packages with `:ensure`, `:ensure t` or `:ensure <package name>`.
@@ -26,12 +27,13 @@
       # Note that this is NOT recommended unless you have something like
       # `#+PROPERTY: header-args:emacs-lisp :tangle yes` in your config,
       # which defaults `:tangle` to `yes`.
-      alwaysTangle = true;
+      alwaysTangle = false;
 
       # Optionally provide extra packages not in the configuration file.
       extraEmacsPackages = epkgs: [
         epkgs.jupyter
         epkgs.ob-async
+        epkgs.catppuccin-theme
       ];
 
       # Optionally override derivations.
@@ -42,4 +44,6 @@
       # };
     })
   ];
+  services.emacs.enable = true;
+
 }
