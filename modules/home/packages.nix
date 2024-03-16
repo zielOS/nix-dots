@@ -5,6 +5,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
   home.packages = with pkgs; [
+    element-desktop
     alacritty
     insync
     kitty

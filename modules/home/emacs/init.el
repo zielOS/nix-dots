@@ -506,22 +506,22 @@
   :hook ((nix-mode . aggressive-indent-mode)
 	 (python-mode . aggressive-indent-mode)))
 
-(with-eval-after-load 'jupyter
-  (setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
-(setq org-babel-default-header-args:jupyter-python
-      '((:results . "both")
-	;; This seems to lead to buffer specific sessions!
-	(:session . (lambda () (buffer-file-name)))
-	(:pandoc . "t")
-	(:exports . "both")
-	(:cache .   "no")
-	(:noweb . "no")
-	(:hlines . "no")
-	(:tangle . "no")
-	(:eval . "never-export")))
+;; (with-eval-after-load 'jupyter
+;;   (setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+;; (setq org-babel-default-header-args:jupyter-python
+;;       '((:results . "both")
+;; 	;; This seems to lead to buffer specific sessions!
+;; 	(:session . (lambda () (buffer-file-name)))
+;; 	(:pandoc . "t")
+;; 	(:exports . "both")
+;; 	(:cache .   "no")
+;; 	(:noweb . "no")
+;; 	(:hlines . "no")
+;; 	(:tangle . "no")
+;; 	(:eval . "never-export")))
 
-(defalias 'org-babel-execute:ipython 'org-babel-execute:jupyter-python)
-(setq org-babel-default-header-args:ipython org-babel-default-header-args:jupyter-python))
+;; (defalias 'org-babel-execute:ipython 'org-babel-execute:jupyter-python)
+;; (setq org-babel-default-header-args:ipython org-babel-default-header-args:jupyter-python))
 
 (global-display-line-numbers-mode -1)
 

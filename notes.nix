@@ -78,3 +78,19 @@ in
     tex
   ];
 }
+
+Attribute sets declared with rec prepended allow access to attributes from within the set.
+
+rec {
+  one = 1;
+  two = one + 1;
+  three = two + 1;
+}
+
+
+The value of a Nix expression can be inserted into a character string with the dollar-sign and braces (${ }).
+
+let
+  name = "Nix";
+in
+"hello ${name}"

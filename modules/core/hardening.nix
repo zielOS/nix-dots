@@ -123,14 +123,6 @@
     audit.enable = true;
     auditd.enable = true;
     audit.rules  = [ "-a exit,always -F arch=b64 -S execve" ];
-    pam.services = {
-      login.enableGnomeKeyring = true;
-      swaylock = {
-        text = ''
-          auth include login
-        '';
-      };
-    };
     pam.loginLimits = [
       { domain = "*"; item = "core"; type = "hard"; value = "0";}
     ]; 

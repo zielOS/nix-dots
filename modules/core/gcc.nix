@@ -1,19 +1,21 @@
-{ config, pkgs,  ... }:
+{ config, pkgs, fastStdenv, ... }:
 
-let
-  gcc13optimized = pkgs.gcc.override {
-    self = gcc13optimized;
-    langJit = true;
-    enableLTO = true;
-    profiledCompiler = true;
-    reproducibleBuild = false;
-  };
+fastStdenv.mkDerivation {
+   name = "env";
+}
 
-in {
+# let
+#   gcc13optimized = pkgs.libgcc.override {
+#     self = gcc13optimized;
+#     langJit = true;
+#     enableLTO = true;
+#     profiledCompiler = true;
+#     reproducibleBuild = false;
+#   };
+
+{
   environment.systemPackages = with pkgs; [
-    gcc13optimized
-    libgcc
-    libgccjit
+    env.gcc
   ];
 
 }

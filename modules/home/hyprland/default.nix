@@ -45,9 +45,8 @@ in
       ];
 
       monitor = [
-        "DP-1, 2560x1440@60, 0x0, 1"
-        "DP-2, 3440x1440@60, 2560x0, 1"
-        "DP-3, 2560x1440@60, 6000x0, 1"
+        "DP-3, 2560x1440@60, 0x0, 1"
+        "DP-5, 2560x1440@60, 2560x0, 1"
       ];
 
       general = {
@@ -56,8 +55,19 @@ in
       };
 
       misc = {
-        disable_splash_rendering = true;
-        force_default_wallpaper = false;
+	      disable_hyprland_logo = false;
+	      disable_splash_rendering = true;
+	      mouse_move_enables_dpms = false;
+	      always_follow_on_dnd = true;
+	      layers_hog_keyboard_focus = true;
+	      animate_manual_resizes = true;
+	      animate_mouse_windowdragging = true;
+        disable_autoreload = false;
+	      focus_on_activate = true;
+	      no_direct_scanout = false;
+        enable_swallow = true;
+        vfr = false;
+        vrr = false;
       };
 
       input = {
@@ -76,8 +86,14 @@ in
       };
 
       dwindle = {
-        pseudotile = "yes";
-        preserve_split = "yes";
+        pseudotile = false;
+        preserve_split = true;
+        force_split = 0;
+        special_scale_factor = 0.97;
+        split_width_multiplier = 1.0;
+        no_gaps_when_only = false;
+        use_active_for_splits = true;
+        default_split_ratio = 1;
         # no_gaps_when_only = "yes";
       };
 
@@ -136,6 +152,7 @@ in
         "SUPER, G, fullscreen"
         "SUPER, O, fakefullscreen"
         "SUPER, P, togglesplit"
+        "SUPER, X, exec, ags -b hypr -t powermenu"
 
 "CTRL_ALT, left, exec, hyprnome --previous"
 "CTRL_ALT, right, exec, hyprnome"

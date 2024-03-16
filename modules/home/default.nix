@@ -9,7 +9,7 @@
   imports = [
     ./ags_setup.nix
     ./dev.nix
-    #./emacs
+    ./emacs
     ./git
     ./gtk 
     ./hyprland
