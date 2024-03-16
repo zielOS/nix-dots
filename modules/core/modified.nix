@@ -1,19 +1,33 @@
 {config, pkgs, ... }:
 
 let
-  modified = pkgs.override {
-    self = modified;
-    packageOverrides = pkgs: rec {
-      elfutils = pkgs.elfutils.override { doCheck = false; doInstallCheck = false; };
-    };
-  };
-  modifiednixpkgs = modified.pkgs;
-  
+  python_mod = (pkgs.python3.override {
+    doCheck = false;
+    doInstallCheck = false;
+  });
+  elfutils_mod = (pkgs.elfutils.override {
+    doCheck = false;
+    doInstallCheck = false;
+  });
+  clang_mod = (pkgs.clang.override {
+    doCheck = false;
+    doInstallCheck = false;
+  });
+  llvm_mod = (pkgs.llvm.override {
+    doCheck = false;
+    doInstallCheck = false;
+  });
+
+
+
 in {
-  environment.systemPackages = with modifiednixpkgs; [
-    elfutils
+  environment.systemPackages = with pkgs; [
+    elfutils_mod
+    clang_mod
+    llvm_mod
+    python_mod
    
   ];
 
 
-};
+}

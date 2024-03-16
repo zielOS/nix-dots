@@ -84,10 +84,10 @@
       #inputs.nix-doom-emacs.overlay
     ];
 
-    localSystem = { 
-      system = "x86_64-linux";
-      gcc.arch = "alderlake"; 
-    };
+    # localSystem = { 
+    #   system = "x86_64-linux";
+    #   gcc.arch = "alderlake"; 
+    # };
 
   };
 

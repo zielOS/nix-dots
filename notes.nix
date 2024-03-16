@@ -62,3 +62,19 @@ Most of the content of profiles should be written in Nixpkgs’ pkgs/ in a postI
 Currently application profiles should be defined using security.apparmor.policies."bin.transmission-daemon".profile to include the profile from Nixpkgs (eg. include "${pkgs.transmission.apparmor}/bin.transmission-daemon"), but thinking about it, we should maybe load those profiles from environment.systemPackages like .desktop files, using environment.pathsToLink and environment.extraSetup.
 
 The term policies in security.apparmor.policies does not really match something in AppArmor, I just needed a term to gather under the same name, the three options enable, enforce (whether to forbid or just report unallowed access), and profile (the rules for some executable paths).
+
+{ config, pkgs, ... }:
+let
+  tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-basic
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+      #(setq org-latex-compiler "lualatex")
+      #(setq org-preview-latex-default-process 'dvisvgm)
+  });
+in
+{ # home-manager
+  home.packages = with pkgs; [
+    tex
+  ];
+}
