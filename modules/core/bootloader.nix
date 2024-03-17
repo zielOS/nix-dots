@@ -8,6 +8,11 @@
     };
     consoleLogLevel = 0;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelParams = [
+      "audit=1"
+      "apparmor=1" 
+      "security=apparmor"
+    ];
     initrd.verbose = true;
     loader = {
       systemd-boot.enable = true;

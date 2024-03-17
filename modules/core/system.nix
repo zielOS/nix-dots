@@ -23,10 +23,6 @@ in {
     };
 
   };
-  programs = {
-    dconf.enable = true;
-    zsh.promptInit = ''eval "$(${pkgs.starship}/bin/starship init zsh)"'';
-  };
 
   # compress half of the ram to use as swap
   zramSwap = {
@@ -79,7 +75,6 @@ in {
     tealdeer
     tree
     sage
-    element-desktop-wayland
   ];
 
   environment.etc = {

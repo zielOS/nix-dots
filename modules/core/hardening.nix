@@ -102,7 +102,9 @@
   services = { 
     jitterentropy-rngd.enable = true;
     haveged.enable = true;
-    sysstat.enable = true; };
+    sysstat.enable = true;
+    dbus.apparmor = "enabled";
+  };
 
   security = {
     protectKernelImage = false;
@@ -118,6 +120,7 @@
         apparmor-utils
         apparmor-parser
         libapparmor
+        apparmor-kernel-patches
       ];
     };
     audit.enable = true;

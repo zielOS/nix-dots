@@ -8,10 +8,17 @@ let
       })
     ];
   };
+
+  gccoptimized = pkgs.gcc-unwrapped.override {
+    langJit = true;
+    profiledCompiler = true;
+    enableLTO = true;
+    reproducibleBuild = false;
+  };
+  
 in {
   environment.systemPackages = with pkgs; [
-    gcc
-    python3
+    gccoptimized
     clang
     llvm
     perl
