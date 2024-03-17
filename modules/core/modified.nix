@@ -5,10 +5,6 @@ let
     doCheck = false;
     doInstallCheck = false;
   });
-  elfutils_mod = (pkgs.elfutils.override {
-    doCheck = false;
-    doInstallCheck = false;
-  });
   clang_mod = (pkgs.clang.override {
     doCheck = false;
     doInstallCheck = false;
@@ -22,11 +18,10 @@ let
 
 in {
   environment.systemPackages = with pkgs; [
-    elfutils_mod
-    clang_mod
-    llvm_mod
-    python_mod
-   
+  elfutils = (pkgs.elfutils.override {
+    doCheck = false;
+    doInstallCheck = false;
+  });
   ];
 
 

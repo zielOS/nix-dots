@@ -7,7 +7,7 @@
     ./flatpak.nix
     ./network.nix
     ./python.nix
-    #./gcc.nix
+    ./gcc.nix
     #./modified.nix
     ./nix.nix
     ./polkit.nix
