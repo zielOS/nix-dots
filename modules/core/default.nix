@@ -6,10 +6,11 @@
     ./bluetooth.nix
     ./flatpak.nix
     ./network.nix
-    ./python.nix
+    #./python.nix
+    ./packages.nix
     #./cuda.nix
     ./gcc.nix
-    #./modified.nix
+    ./modified.nix
     ./nix.nix
     ./polkit.nix
     ./system.nix

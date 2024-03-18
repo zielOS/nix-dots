@@ -19,8 +19,9 @@
       enable = true;
       resyncTimer = "10m";
     };
-
   };
+
+  programs.dconf.enable = true;
 
   # compress half of the ram to use as swap
   zramSwap = {
@@ -49,26 +50,6 @@
     ];	
 
   };
-  environment.systemPackages = with pkgs; [
-    cachix
-    xfce.thunar
-    wget
-    lazygit
-    linux-firmware
-    btop
-    bleachbit
-    xfce.xfconf
-    fd
-    gnumake
-    chkrootkit
-    killall
-    vulkan-loader
-    vulkan-validation-layers
-    vulkan-tools
-    nvidia-vaapi-driver
-    tealdeer
-    tree
-  ];
 
   environment.etc = {
     issue = {
