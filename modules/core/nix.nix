@@ -12,19 +12,19 @@
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-    # #package = pkgs.nixUnstable;
-    # package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable; 
+    #package = pkgs.nixFlakes;
 
     # Make builds run with low priority so my system stays responsive
     # daemonCPUSchedPolicy = "idle";
     # daemonIOSchedClass = "idle";
 
     # pin the registry to avoid downloading and evaling a new nixpkgs version every time
-    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+   # registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+   # nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
@@ -42,8 +42,8 @@
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
       sandbox = true;
-      max-jobs = 4;
-      cores = 12;
+      max-jobs = "auto";
+      #cores = 12;
       keep-going = true;
       log-lines = 50;
       system-features = [
@@ -81,18 +81,18 @@
     overlays = with inputs; [
       rust-overlay.overlays.default
       nur.overlay
-/*       emacs-overlay.overlay */
+      #emacs-overlay.overlay 
       #inputs.nix-doom-emacs.overlay
     ];
 
     hostPlatform = { 
       system = "x86_64-linux";
-      gcc.arch = "alderlake"; 
+      gcc.arch = "alderlake";
+      gcc.tune = "alderlake";
     };
 
   };
 
-# faster rebuilding
   documentation = {
     enable = true;
     doc.enable = true;
@@ -100,10 +100,8 @@
     dev.enable = false;
   };
 
-# Autoupdate
-  system.autoUpgrade = {
-    enable = true;
+  system = {
+    autoUpgrade.enable = true;
+    stateVersion = "24.05";
   };
-
-  system.stateVersion = "24.05"; # Dont touch this
 }

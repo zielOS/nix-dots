@@ -22,35 +22,30 @@ let
     reproducibleBuild = false;
     packageOverrides = python-self: python-super: {
       curio = python-super.curio.overridePythonAttrs (oldAttrs: {
-        doCheck = false;
-        doInstallCheck = false;
+        doCheck = false; doInstallCheck = false;
       });
       cffi = python-super.cffi.overridePythonAttrs (oldAttrs: {
-        doCheck = false;
-        doInstallCheck = false;
+        doCheck = false; doInstallCheck = false;
       });
       websockets = python-super.websockets.overridePythonAttrs (oldAttrs: {
-        doCheck = false;
-        doInstallCheck = false;
+        doCheck = false; doInstallCheck = false;
       });
       SQLAlchemy = python-super.SQLAlchemy.overridePythonAttrs (oldAttrs: {
-        doCheck = false;
-        doInstallCheck = false;
+        doCheck = false; doInstallCheck = false;
       });
       
     };
   };
 
-  elfutils = pkgs.elfutils.overrideAttrs (oldAttrs: rec {
-    doCheck = false;
-    doInstallCheck = false;
-  });
+  # elfutils = pkgs.elfutils.override {
+  #   doCheck = false;
+  #   doInstallCheck = false;
+  #   enableParallelBuilding = false;
+  #   enableDebuginfod = false;
+  # };
 
 in {
   environment.systemPackages = with pkgs; [
-    gccoptimized
-    elfutils
-
     (python311optimized.withPackages (p: with p; [
       pandas
       numpy
@@ -62,18 +57,17 @@ in {
       pyarrow
       pip
       setuptools
-      tensorflowWithCuda
+      #tensorflowWithCuda
     ]))
-    (xfce.withPackages (t: with t: [
-      thunar
-      exo
-      xfconf
-      tumbler
-      catfish
-      thunar-volman
-      thunar-media-tags-plugin
-      thunar-archive-plugin
-    ]))
+    xfce.thunar
+    xfce.exo
+    xfce.xfconf
+    xfce.tumbler
+    xfce.catfish
+    xfce.thunar-volman
+    xfce.thunar-media-tags-plugin
+    xfce.thunar-archive-plugin
+    gccoptimized
     cachix
     wget
     lazygit
@@ -90,17 +84,42 @@ in {
     nvidia-vaapi-driver
     tealdeer
     tree
-    sage
-    cudaPackagesGoogle.cudatoolkit
+    #sage
+    #cudaPackagesGoogle.cudatoolkit
     # clang
     # llvm
     # perl
     # sage
-    # openssl
-    # cmake
-    # gnumake
-    # nix
-    # nodejs
+    openssl
+    cmake
+    gnumake
+    element-desktop
+    alacritty
+    insync
+    kitty
+    lutris
+    brave
+    fastfetch
+    lsd
+    git
+    cached-nix-shell 
+    typescript
+    fzf
+    nodejs
+    cargo
+    lynis
+    unzip
+    ripgrep
+    ffmpeg
+    pymol
+    xournalpp
+    imagemagick
+    deluge
+    fd
+    jq 
+    lm_sensors
+    catppuccin-gtk
+    nodejs
   ];
 
 }

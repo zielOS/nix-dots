@@ -1,7 +1,6 @@
-{ config, pkgs, nixpkgs, ... }:
+{ config, pkgs, stdenv, nixpkgs, lib, modulesPath, ... }:
 
-
-{
+{ 
 
   services = {
     dbus = {
@@ -51,6 +50,7 @@
 
   };
 
+
   environment.etc = {
     issue = {
       text = ''
@@ -65,12 +65,6 @@
       mode = "0440";
     };  
   };
-
-  programs.thunar.plugins = with pkgs.xfce; [
-    thunar-archive-plugin
-    thunar-volman
-    thunar-media-tags-plugin
-  ];
 
   time = {
     timeZone = "America/Edmonton";

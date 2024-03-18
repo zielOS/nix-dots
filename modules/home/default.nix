@@ -18,7 +18,7 @@
     ./lvim
     ./starship
     ./gtk
-    ./packages.nix
+    #./packages.nix
     ./zsh
     ./zathura
   ];

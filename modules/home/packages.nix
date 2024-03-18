@@ -12,18 +12,12 @@
     lutris
     brave
     fastfetch
-    pyprland
-    hyprshade
-    hyprnome
     lsd
     git
     cached-nix-shell 
     typescript
     fzf
     nodejs
-    spotify
-    gjs
-    bun
     cargo
     lynis
     unzip

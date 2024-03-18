@@ -24,7 +24,7 @@ in
 
 
   home = { 
-    packages = with pkgs; [ pyprland hyprshade hypridle hyprlock ];
+    packages = with pkgs; [ pyprland hyprshade hyprnome hypridle hyprlock ];
     file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
     file.".config/hypr/pyprland.json".source = ./pyprland.json;
   };
@@ -164,10 +164,10 @@ in
         "SUPER, P, togglesplit"
         "SUPER, X, exec, ags -b hypr -t powermenu"
 
-"CTRL_ALT, left, exec, hyprnome --previous"
-"CTRL_ALT, right, exec, hyprnome"
-"SUPER_CTRL_ALT, left, exec, hyprnome --previous --move"
-"SUPER_CTRL_ALT, right, exec, hyprnome --move"
+        "CTRL_ALT, left, exec, hyprnome --previous"
+        "CTRL_ALT, right, exec, hyprnome"
+        "SUPER_CTRL_ALT, left, exec, hyprnome --previous --move"
+        "SUPER_CTRL_ALT, right, exec, hyprnome --move"
 
         (mvfocus "up" "u")
         (mvfocus "down" "d")
