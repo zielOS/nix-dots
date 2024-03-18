@@ -1,9 +1,7 @@
 { config, pkgs, nixpkgs, ... }:
 
-let
-  nixos = import <nixos> { config = { allowUnfree = true; }; };
 
-in {
+{
 
   services = {
     dbus = {
@@ -44,23 +42,15 @@ in {
     HYPRSHOT_DIR =  "\${HOME}/Pictures";
     DOOM_DIR =  "\${HOME}/.emacs.d/bin";
  
-
-
-
     PATH = [
       "\${XDG_BIN_HOME}"
       "\${NPM_HOME}"
       "\${DOOM_DIR}"
-      "\${CUDA_PATH}"
-      "\${EXTRA_LDFLAGS}"
     ];	
 
   };
   environment.systemPackages = with pkgs; [
     cachix
-    libGLU libGL
-    xorg.libXi xorg.libXmu freeglut
-    xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib
     xfce.thunar
     wget
     lazygit
@@ -69,6 +59,7 @@ in {
     bleachbit
     xfce.xfconf
     fd
+    gnumake
     chkrootkit
     killall
     vulkan-loader

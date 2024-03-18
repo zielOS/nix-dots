@@ -12,8 +12,8 @@
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-    package = pkgs.nixUnstable;
-    #package = pkgs.nixFlakes;
+    # #package = pkgs.nixUnstable;
+    # package = pkgs.nixFlakes;
 
     # Make builds run with low priority so my system stays responsive
     # daemonCPUSchedPolicy = "idle";
@@ -71,7 +71,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowBroken = false;
+      allowBroken = true;
       permittedInsecurePackages = [
         "openssl-1.1.1u"
         "electron-25.9.0"
@@ -85,10 +85,10 @@
       #inputs.nix-doom-emacs.overlay
     ];
 
-    # localSystem = { 
-    #   system = "x86_64-linux";
-    #   gcc.arch = "alderlake"; 
-    # };
+    hostPlatform = { 
+      system = "x86_64-linux";
+      gcc.arch = "alderlake"; 
+    };
 
   };
 

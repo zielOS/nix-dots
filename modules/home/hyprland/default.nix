@@ -24,7 +24,7 @@ in
 
 
   home = { 
-    packages = with pkgs; [ pyprland hyprshade ];
+    packages = with pkgs; [ pyprland hyprshade hypridle hyprlock ];
     file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
     file.".config/hypr/pyprland.json".source = ./pyprland.json;
   };
@@ -44,7 +44,8 @@ in
         "ckb-next"
         "thunar --daemon"
       ];
-
+        
+      xwayland.force_zero_scaling = true;
       monitor = [
         "DP-3, 2560x1440@60, 0x0, 1"
         "DP-5, 2560x1440@60, 2560x0, 1"
@@ -69,6 +70,13 @@ in
         enable_swallow = true;
         vfr = false;
         vrr = false;
+      };
+
+      group = {
+        groupbar = {
+          font_size = 16;
+          gradients = false;
+        };
       };
 
       input = {

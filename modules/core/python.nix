@@ -33,13 +33,14 @@ in {
       numpy
       scipy
       keras
-      scikit-learn
+      #scikit-learn
       cython_3
       jupyter
       pyarrow
       pip
       setuptools
-      tensorflowWithCuda
+      #tensorflowWithCuda
+
     ]))
   ];
 
