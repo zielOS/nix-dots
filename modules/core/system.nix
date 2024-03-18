@@ -28,6 +28,7 @@ in {
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+    #memoryPercent = 200;
   };
   
   environment.variables = {
@@ -42,29 +43,31 @@ in {
     NPM_HOME = "\${HOME}/.npm-global/bin";
     HYPRSHOT_DIR =  "\${HOME}/Pictures";
     DOOM_DIR =  "\${HOME}/.emacs.d/bin";
-    
-    #NIX_PATH = "\${HOME}/nixpkgs/lib/systems/architectures.nix ";
+ 
+
+
 
     PATH = [
       "\${XDG_BIN_HOME}"
       "\${NPM_HOME}"
       "\${DOOM_DIR}"
+      "\${CUDA_PATH}"
+      "\${EXTRA_LDFLAGS}"
     ];	
 
   };
   environment.systemPackages = with pkgs; [
     cachix
+    libGLU libGL
+    xorg.libXi xorg.libXmu freeglut
+    xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib
     xfce.thunar
     wget
     lazygit
     linux-firmware
-    nix
-    nodejs
     btop
     bleachbit
     xfce.xfconf
-    gnumake
-    cmake
     fd
     chkrootkit
     killall
@@ -74,7 +77,6 @@ in {
     nvidia-vaapi-driver
     tealdeer
     tree
-    sage
   ];
 
   environment.etc = {

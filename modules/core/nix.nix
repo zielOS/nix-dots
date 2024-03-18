@@ -42,7 +42,8 @@
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
       sandbox = true;
-      max-jobs = "auto";
+      max-jobs = 4;
+      cores = 12;
       keep-going = true;
       log-lines = 50;
       system-features = [

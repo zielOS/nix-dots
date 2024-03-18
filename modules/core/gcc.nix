@@ -22,6 +22,12 @@ in {
     clang
     llvm
     perl
+    # sage
+    # openssl
+    # cmake
+    # gnumake
+    # nix
+    # nodejs
   ];
 
 }

@@ -2,10 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    fastStdenv
-    with cudaPackages; [
-      cudatoolkit
-      cudnn
-    ];
+    fastStdenv 
+      cudaPackages.cudatoolkit
+      cudaPackages.cudnn
   ];
 }

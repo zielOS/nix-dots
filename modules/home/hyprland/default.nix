@@ -42,6 +42,7 @@ in
         "hyprctl setcursor Qogir 24"
         "insync start"
         "ckb-next"
+        "thunar --daemon"
       ];
 
       monitor = [
@@ -140,6 +141,7 @@ in
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, alacritty" # xterm is a symlink, not actually xterm
         "SUPER, B, exec, brave"
+        "SUPER, T, exec, thunar"
         "SUPER, E, exec, emacsclient -c -a 'emacs'"
 
         # youtube
