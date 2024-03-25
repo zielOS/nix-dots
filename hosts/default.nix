@@ -1,4 +1,4 @@
-{ nixpkgs, self, chaotic, ... }:
+{ nixpkgs, self, chaotic, nixos-hardware, ... }:
 
 let
   inputs = self.inputs;
@@ -7,6 +7,7 @@ let
   emacs = ../modules/emacs;
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
+  laptop = nixos-hardware.nixosModules.asus-zephyrus-ga401;
   chaotic_nix = chaotic.homeManagerModules.default;
   pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   asztal = pkgs.callPackage ../modules/ags { inherit inputs; };
@@ -62,6 +63,8 @@ in {
         nvidia
         wayland
         hmModule
+        laptop
+        
         {inherit home-manager;}
       ]
       ++shared;
