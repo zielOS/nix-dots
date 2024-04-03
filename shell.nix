@@ -1,9 +1,13 @@
 { pkgs ? import <nixpkgs> {} }:
 
-with pkgs;
-
-mkShell {
-  buildInputs = [
-
+pkgs.mkShell {
+  name="dev-environment";
+  buildInputs = with pkgs; [
+    python3
+    nodejs
   ];
+  shellHook = ''
+    echo "Starting developing.."
+  '';
+
 }
