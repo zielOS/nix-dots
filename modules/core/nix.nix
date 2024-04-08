@@ -85,11 +85,11 @@
       #inputs.nix-doom-emacs.overlay
     ];
 
-    hostPlatform = { 
-      system = "x86_64-linux";
-      gcc.arch = "alderlake";
-      gcc.tune = "alderlake";
-    };
+    # hostPlatform = { 
+    #   system = "x86_64-linux";
+    #   gcc.arch = "alderlake";
+    #   gcc.tune = "alderlake";
+    # };
 
   };
 
