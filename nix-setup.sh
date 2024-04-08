@@ -23,3 +23,6 @@ mkdir /mnt/nix && mount -o noatime,compress=zstd,space_cache=v2,discard=async,su
 mkdir -p /mnt/boot && mount /dev/disk/by-label/NIXBOOT /mnt/boot
 
 sudo nixos-generate-config --root /mnt
+
+nixos-install --flake https://github.com/bara/myflake_repo#somehost
+
