@@ -38,7 +38,8 @@ in
 
     settings = {
       exec-once = [
-        "ags -b hypr"
+        "ags"
+        "nm-applet"
         "hyprctl setcursor Qogir 24"
         "insync start"
         "ckb-next"
@@ -47,8 +48,7 @@ in
         
       xwayland.force_zero_scaling = true;
       monitor = [
-        "DP-3, 2560x1440@60, 0x0, 1"
-        "DP-5, 2560x1440@60, 2560x0, 1"
+        "eDP-1, 2560x1440@60, 0x0, 1"
       ];
 
       general = {

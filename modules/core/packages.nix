@@ -116,7 +116,8 @@ in {
     imagemagick
     deluge
     fd
-    jq 
+    jq
+    networkmanagerapplet
     lm_sensors
     catppuccin-gtk
     nodejs

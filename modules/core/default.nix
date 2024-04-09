@@ -6,7 +6,6 @@
     ./bluetooth.nix
     ./flatpak.nix
     ./network.nix
-    ./elfutils.nix
     ./packages.nix
     ./nix.nix
     ./polkit.nix
