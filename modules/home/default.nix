@@ -7,6 +7,7 @@
   };
 
   imports = [
+    ./alacritty
     ./ags_setup.nix
     ./dev.nix
     ./emacs

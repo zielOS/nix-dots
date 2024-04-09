@@ -67,10 +67,10 @@
   };
 
   time = {
-    timeZone = "America/Edmonton";
+    timeZone = "Asia/Dhaka";
     hardwareClockInLocalTime = true;
   };
   
-  i18n.defaultLocale = "en_CA.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";
 }

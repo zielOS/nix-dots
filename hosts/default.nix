@@ -63,7 +63,7 @@ in {
         nvidia
         wayland
         hmModule
-        laptop
+        #laptop
         
         {inherit home-manager;}
       ]
