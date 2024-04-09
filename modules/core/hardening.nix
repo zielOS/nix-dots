@@ -103,9 +103,10 @@
     jitterentropy-rngd.enable = true;
     haveged.enable = true;
     sysstat.enable = true;
-    dbus.apparmor = "enabled";
   };
 
+  programs.atop.atopacctService.enable = true;
+  
   security = {
     protectKernelImage = false;
     lockKernelModules = false;

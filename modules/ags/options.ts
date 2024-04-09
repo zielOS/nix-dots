@@ -7,7 +7,7 @@ import icons from "lib/icons"
 const options = mkOptions(OPTIONS, {
     autotheme: opt(false),
 
-    wallpaper: opt(`/home/${USER}/.config/background`, { persistent: true }),
+    wallpaper: opt(`/home/${USER}/.config/wallpapers`, { persistent: true }),
 
     theme: {
         dark: {

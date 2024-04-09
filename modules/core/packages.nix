@@ -9,33 +9,33 @@ let
   #   ];
   # };
 
-  # gccoptimized = pkgs.gcc-unwrapped.override {
-  #   langJit = true;
-  #   profiledCompiler = true;
-  #   enableLTO = true;
-  #   reproducibleBuild = false;
-  # };
+  gccoptimized = pkgs.gcc-unwrapped.override {
+    langJit = true;
+    profiledCompiler = true;
+    enableLTO = true;
+    reproducibleBuild = false;
+  };
 
-  # python311optimized = pkgs.python311.override {
-  #   self = python311optimized;
-  #   enableOptimizations = true;
-  #   reproducibleBuild = false;
-  #   packageOverrides = python-self: python-super: {
-  #     curio = python-super.curio.overridePythonAttrs (oldAttrs: {
-  #       doCheck = false; doInstallCheck = false;
-  #     });
-  #     cffi = python-super.cffi.overridePythonAttrs (oldAttrs: {
-  #       doCheck = false; doInstallCheck = false;
-  #     });
-  #     websockets = python-super.websockets.overridePythonAttrs (oldAttrs: {
-  #       doCheck = false; doInstallCheck = false;
-  #     });
-  #     SQLAlchemy = python-super.SQLAlchemy.overridePythonAttrs (oldAttrs: {
-  #       doCheck = false; doInstallCheck = false;
-  #     });
-  #     
-  #   };
-  # };
+  python311optimized = pkgs.python311.override {
+    self = python311optimized;
+    enableOptimizations = true;
+    reproducibleBuild = false;
+    packageOverrides = python-self: python-super: {
+      curio = python-super.curio.overridePythonAttrs (oldAttrs: {
+        doCheck = false; doInstallCheck = false;
+      });
+      cffi = python-super.cffi.overridePythonAttrs (oldAttrs: {
+        doCheck = false; doInstallCheck = false;
+      });
+      websockets = python-super.websockets.overridePythonAttrs (oldAttrs: {
+        doCheck = false; doInstallCheck = false;
+      });
+      SQLAlchemy = python-super.SQLAlchemy.overridePythonAttrs (oldAttrs: {
+        doCheck = false; doInstallCheck = false;
+      });
+      
+    };
+  };
 
   # elfutils = pkgs.elfutils.override {
   #   doCheck = false;
@@ -46,19 +46,13 @@ let
 
 in {
   environment.systemPackages = with pkgs; [
-    # (python311optimized.withPackages (p: with p; [
-    #   pandas
-    #   numpy
-    #   scipy
-    #   keras
-    #   scikit-learn
-    #   cython_3
-    #   jupyter
-    #   pyarrow
-    #   pip
-    #   setuptools
-    #   #tensorflowWithCuda
-    # ]))
+    (python311optimized.withPackages (p: with p; [
+      cython_3
+      jupyter
+      pip
+      setuptools
+      #tensorflowWithCuda
+    ]))
     xfce.thunar
     xfce.exo
     xfce.xfconf
@@ -67,7 +61,7 @@ in {
     xfce.thunar-volman
     xfce.thunar-media-tags-plugin
     xfce.thunar-archive-plugin
-    #gccoptimized
+    gccoptimized
     cachix
     wget
     lazygit
@@ -84,12 +78,7 @@ in {
     nvidia-vaapi-driver
     tealdeer
     tree
-    #sage
-    #cudaPackagesGoogle.cudatoolkit
-    # clang
-    # llvm
-    # perl
-    # sage
+    sage
     openssl
     cmake
     gnumake
@@ -121,6 +110,9 @@ in {
     lm_sensors
     catppuccin-gtk
     nodejs
+    lynis
+    lsd
+    btop
   ];
 
 }

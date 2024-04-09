@@ -23,14 +23,14 @@
   programs.dconf.enable = true;
 
   # compress half of the ram to use as swap
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    #memoryPercent = 200;
-  };
+  # zramSwap = {
+  #   enable = true;
+  #   algorithm = "zstd";
+  #   #memoryPercent = 200;
+  # };
   
   environment.variables = {
-    EDITOR = "nvim";
+    EDITOR = "lvim";
     BROWSER = "brave";
     TERMINAL = "alacritty";
   };
@@ -40,7 +40,7 @@
     XDG_BIN_HOME    = "\${HOME}/.local/bin";
     NPM_HOME = "\${HOME}/.npm-global/bin";
     HYPRSHOT_DIR =  "\${HOME}/Pictures";
-    DOOM_DIR =  "\${HOME}/.emacs.d/bin";
+    DOOM_DIR =  "\${HOME}/.config/emacs/bin";
  
     PATH = [
       "\${XDG_BIN_HOME}"
