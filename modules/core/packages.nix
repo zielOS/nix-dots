@@ -61,7 +61,7 @@ in {
     xfce.thunar-volman
     xfce.thunar-media-tags-plugin
     xfce.thunar-archive-plugin
-   # gccoptimized
+    #gccoptimized
     cachix
     wget
     lazygit
@@ -109,10 +109,10 @@ in {
     networkmanagerapplet
     lm_sensors
     catppuccin-gtk
+    nodejs
     lynis
     lsd
     btop
-    firefox
   ];
 
 }

@@ -18,6 +18,7 @@
     ./mpv
     ./lvim
     ./starship
+    ./tools
     ./gtk
     #./packages.nix
     ./waybar

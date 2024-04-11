@@ -71,8 +71,8 @@ in
 	      focus_on_activate = true;
 	      no_direct_scanout = false;
         enable_swallow = true;
-        vfr = false;
-        vrr = false;
+        vfr = true;
+        vrr = true;
       };
 
       group = {
