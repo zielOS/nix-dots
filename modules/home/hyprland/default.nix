@@ -27,7 +27,7 @@ in
     ./hyprlock.nix
    ];
   home = { 
-    packages = with pkgs; [ pyprland hyprshade hyprnome hypridle hyprlock ];
+    packages = with pkgs; [ pyprland hyprshade hyprnome ];
     file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
     file.".config/hypr/pyprland.json".source = ./pyprland.json;
   };

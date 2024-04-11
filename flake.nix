@@ -12,7 +12,8 @@
     hyprland.url = "github:hyprwm/Hyprland/";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    
+    hypridle.url = "github:hyprwm/hypridle";
+    hyprlock.url = "github:hyprwm/hyprlock";
     nur.url = "github:nix-community/NUR";
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";

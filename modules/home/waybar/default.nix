@@ -1,239 +1,225 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  brightnessctl = pkgs.brightnessctl + "/bin/brightnessctl";
+  pamixer = pkgs.pamixer + "/bin/pamixer";
+  waybar-wttr = pkgs.stdenv.mkDerivation {
+    name = "waybar-wttr";
+    buildInputs = [
+      (pkgs.python39.withPackages
+        (pythonPackages: with pythonPackages; [requests]))
+    ];
+    unpackPhase = "true";
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ${./scripts/waybar-wttr.py} $out/bin/waybar-wttr
+      chmod +x $out/bin/waybar-wttr
+    '';
+  };
+in {
+  xdg.configFile."waybar/style.css".text = import ./style.nix;
+
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    systemd.target = "graphical-session.target";
+    package = pkgs.waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+      patchPhase = ''
+        substituteInPlace src/modules/wlr/workspace_manager.cpp --replace "zext_workspace_handle_v1_activate(workspace_handle_);" "const std::string command = \"${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch workspace \" + name_; system(command.c_str());"
+      '';
+    });
 
-    settings = [
-      {
+    settings = {
+      mainBar = {
         layer = "top";
         position = "top";
+        mode = "dock";
         exclusive = true;
+        passthrough = false;
         fixed-center = true;
         gtk-layer-shell = true;
-        spacing = 0;
-        margin-top = 0;
-        margin-bottom = 0;
-        margin-left = 0;
-        margin-right = 0;
-        modules-left = ["custom/ghost" "hyprland/workspaces" "hyprland/window"];
-        modules-center = ["custom/weather" "clock"];
-        modules-right = ["tray" "custom/notification" "group/network-pulseaudio-backlight-battery" "group/powermenu"];
+        height = 34;
+        modules-left = [
+          "custom/logo"
+          "wlr/workspaces"
+          "custom/swallow"
+          "custom/weather"
+          "custom/todo"
+          "tray"
+        ];
 
-        # Ghost
-        "custom/ghost" = {
-          format = "󱙝";
-          tooltip = false;
-        };
+        modules-center = [];
 
-        # Workspaces
-        "hyprland/workspaces" = {
-          format = "";
+        modules-right = [
+          "battery"
+          "backlight"
+          "pulseaudio#microphone"
+          "pulseaudio"
+          "network"
+          "clock#date"
+          "clock"
+          "custom/power"
+        ];
+
+        "wlr/workspaces" = {
           on-click = "activate";
-          disable-scroll = true;
+          format = "{name}";
           all-outputs = true;
-          show-special = true;
-          persistent-workspaces = {
-            "*" = 5;
-          };
+          disable-scroll = true;
+          active-only = false;
         };
 
-        # Window
-        "hyprland/window" = {
+        "custom/logo" = {
+          tooltip = false;
+          format = " ";
+        };
+
+        "custom/todo" = {
+          tooltip = true;
           format = "{}";
-          separate-outputs = true;
+          interval = 7;
+          exec = let
+            todo = pkgs.todo + "/bin/todo";
+            sed = pkgs.gnused + "/bin/sed";
+            wc = pkgs.coreutils + "/bin/wc";
+          in
+            pkgs.writeShellScript "todo-waybar" ''
+              #!/bin/sh
+
+              total_todo=$(${todo} | ${wc} -l)
+              todo_raw_done=$(${todo} raw done | ${sed} 's/^/      ◉ /' | ${sed} -z 's/\n/\\n/g')
+              todo_raw_undone=$(${todo} raw todo | ${sed} 's/^/     ◉ /' | ${sed} -z 's/\n/\\n/g')
+              done=$(${todo} raw done | ${wc} -l)
+              undone=$(${todo} raw todo | ${wc} -l)
+              tooltip=$(${todo})
+
+              left="$done/$total_todo"
+
+              header="<b>todo</b>\\n\\n"
+              tooltip=""
+              if [[ $total_todo -gt 0 ]]; then
+              	if [[ $undone -gt 0 ]]; then
+              		export tooltip="$header👷 Today, you need to do:\\n\\n $(echo $todo_raw_undone)\\n\\n✅ You have already done:\\n\\n $(echo $todo_raw_done)"
+              		export output=" 🗒️ $left"
+              	else
+              		export tooltip="$header✅ All done!\\n🥤 Remember to stay hydrated!"
+              		export output=" 🎉 $left"
+              	fi
+              else
+              	export tooltip=""
+              	export output=""
+              fi
+
+              printf '{"text": "%s", "tooltip": "%s" }' "$output" "$tooltip"
+            '';
+          return-type = "json";
         };
 
-        # Weather
         "custom/weather" = {
-          format = "{}°";
           tooltip = true;
-          interval = 3600;
-          exec = "${pkgs.wttrbar}/bin/wttrbar  --hide-conditions --location Jakarta";
+          format = "{}";
+          interval = 30;
+          exec = "${waybar-wttr}/bin/waybar-wttr";
           return-type = "json";
         };
 
-        # Clock & Calendar
-        clock = {
-          format = "{:%b %d %H:%M}";
-          actions = {
-            on-scroll-down = "shift_down";
-            on-scroll-up = "shift_up";
-          };
-          tooltip-format = "<tt><small>{calendar}</small></tt>";
-          calendar = {
-            format = {
-              days = "<span color='#98989d'><b>{}</b></span>";
-              months = "<span color='#ffffff'><b>{}</b></span>";
-              today = "<span color='#ffffff'><b><u>{}</u></b></span>";
-              weekdays = "<span color='#0a84ff'><b>{}</b></span>";
-            };
-            mode = "month";
-            on-scroll = 1;
-          };
+        "custom/swallow" = {
+          tooltip = false;
+          on-click = let
+            hyprctl = config.wayland.windowManager.hyprland.package + "/bin/hyprctl";
+            notify-send = pkgs.libnotify + "/bin/notify-send";
+            rg = pkgs.ripgrep + "/bin/rg";
+          in
+            pkgs.writeShellScript "waybar-swallow" ''
+              #!/bin/sh
+              if ${hyprctl} getoption misc:enable_swallow | ${rg}/bin/rg -q "int: 1"; then
+              	${hyprctl} keyword misc:enable_swallow false >/dev/null &&
+              		${notify-send} "Hyprland" "Turned off swallowing"
+              else
+              	${hyprctl} keyword misc:enable_swallow true >/dev/null &&
+              		${notify-send} "Hyprland" "Turned on swallowing"
+              fi
+            '';
+          format = "󰊰";
         };
 
-        # Tray
+        "custom/power" = {
+          tooltip = false;
+          on-click = "power-menu";
+          format = "󰤆";
+        };
+
         tray = {
-          icon-size = 16;
-          show-passive-items = true;
-          spacing = 8;
+          spacing = 10;
         };
 
-        # Notifications
-        "custom/notification" = {
-          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
-          return-type = "json";
-          format = "{icon}";
-          format-icons = {
-            notification = "󰂚";
-            none = "󰂜";
-            dnd-notification = "󰂛";
-            dnd-none = "󰪑";
-            inhibited-notification = "󰂛";
-            inhibited-none = "󰪑";
-            dnd-inhibited-notification = "󰂛";
-            dnd-inhibited-none = "󰪑";
-          };
-          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
-          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
-          tooltip = true;
-          escape = true;
+        clock = {
+          tooltip = false;
+          format = "󱑎 {:%H:%M}";
         };
 
-        # Group
-        "group/network-pulseaudio-backlight-battery" = {
-          modules = [
-            "network"
-            "group/audio-slider"
-            "group/light-slider"
-            "battery"
-          ];
-          orientation = "inherit";
+        "clock#date" = {
+          format = "󰃶 {:%a %d %b}";
+          tooltip-format = ''
+            <big>{:%Y %B}</big>
+            <tt><small>{calendar}</small></tt>'';
         };
 
-        # Network
-        network = {
-          format-wifi = "󰤨";
-          format-ethernet = "󰈀";
-          format-disconnected = "";
-          tooltip-format-wifi = "WiFi: {essid} ({signalStrength}%)\n󰅃 {bandwidthUpBytes} 󰅀 {bandwidthDownBytes}";
-          tooltip-format-ethernet = "Ethernet: {ifname}\n󰅃 {bandwidthUpBytes} 󰅀 {bandwidthDownBytes}";
-          tooltip-format-disconnected = "Disconnected";
-          on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-        };
-
-        # Pulseaudio
-        "group/audio-slider" = {
-          orientation = "inherit";
-          drawer = {
-            transition-duration = 300;
-            children-class = "audio-slider-child";
-            transition-left-to-right = true;
-          };
-          modules = ["pulseaudio" "pulseaudio/slider"];
-        };
-        pulseaudio = {
-          format = "{icon}";
-          format-bluetooth = "󰂯";
-          format-muted = "󰖁";
-          format-icons = {
-            hands-free = "󱡏";
-            headphone = "󰋋";
-            headset = "󰋎";
-            default = ["󰕿" "󰖀" "󰕾"];
-          };
-          tooltip-format = "Volume: {volume}%";
-          on-click = "${pkgs.pamixer}/bin/pamixer --toggle-mute";
-          on-scroll-up = "${pkgs.pamixer}/bin/pamixer --decrease 1";
-          on-scroll-down = "${pkgs.pamixer}/bin/pamixer --increase 1";
-        };
-        "pulseaudio/slider" = {
-          min = 0;
-          max = 100;
-          orientation = "horizontal";
-        };
-
-        # Backlight
-        "group/light-slider" = {
-          orientation = "inherit";
-          drawer = {
-            transition-duration = 300;
-            children-class = "light-slider-child";
-            transition-left-to-right = true;
-          };
-          modules = ["backlight" "backlight/slider"];
-        };
         backlight = {
-          format = "{icon}";
-          format-icons = ["󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"];
-          tooltip-format = "Backlight: {percent}%";
-          on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
-          on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set +1%";
-        };
-        "backlight/slider" = {
-          min = 0;
-          max = 100;
-          orientation = "horizontal";
+          tooltip = false;
+          format = "{icon} {percent}%";
+          format-icons = ["󰋙" "󰫃" "󰫄" "󰫅" "󰫆" "󰫇" "󰫈"];
+          on-scroll-up = "${brightnessctl} s 1%-";
+          on-scroll-down = "${brightnessctl} s +1%";
         };
 
-        # Battery
         battery = {
-          format = "{icon}";
-          format-charging = "󱐋";
-          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
-          format-plugged = "󰚥";
           states = {
             warning = 30;
-            critical = 20;
+            critical = 15;
           };
+          format = "{icon} {capacity}%";
           tooltip-format = "{timeTo}, {capacity}%";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󰚥 {capacity}%";
+          format-alt = "{time} {icon}";
+          format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
         };
 
-        # Powermenu
-        "group/powermenu" = {
-          drawer = {
-            children-class = "powermenu-child";
-            transition-duration = 300;
-            transition-left-to-right = false;
-          };
-          modules = [
-            "custom/power"
-            "custom/exit"
-            "custom/lock"
-            "custom/suspend"
-            "custom/reboot"
-          ];
-          orientation = "inherit";
+        network = {
+          format-wifi = "󰖩 {essid}";
+          format-ethernet = "󰈀 {ipaddr}/{cidr}";
+          format-alt = "󱛇";
+          format-disconnected = "󰖪";
+          tooltip-format = ''
+            󰅃 {bandwidthUpBytes} 󰅀 {bandwidthDownBytes}
+            {ipaddr}/{ifname} via {gwaddr} ({signalStrength}%)'';
         };
-        "custom/power" = {
-          format = "󰐥";
-          on-click = "${pkgs.systemd}/bin/systemctl poweroff";
-          tooltip = false;
-        };
-        "custom/exit" = {
-          format = "󰈆";
-          on-click = "${pkgs.systemd}/bin/loginctl terminate-user $USER";
-          tooltip = false;
-        };
-        "custom/lock" = {
-          format = "󰌾";
-          on-click = "${pkgs.systemd}/bin/loginctl lock-session";
-          tooltip = false;
-        };
-        "custom/suspend" = {
-          format = "󰤄";
-          on-click = "${pkgs.systemd}/bin/systemctl suspend";
-          tooltip = false;
-        };
-        "custom/reboot" = {
-          format = "󰜉";
-          on-click = "${pkgs.systemd}/bin/systemctl reboot";
-          tooltip = false;
-        };
-      }
-    ];
 
-    style = builtins.readFile (./. + "/style.css");
+        pulseaudio = {
+          tooltip = false;
+          format = "{icon} {volume}%";
+          format-muted = "󰖁";
+          format-icons = {default = ["󰕿" "󰖀" "󰕾"];};
+          tooltip-format = "{desc}, {volume}%";
+          on-click = "${pamixer} -t";
+          on-scroll-up = "${pamixer} -d 1";
+          on-scroll-down = "${pamixer} -i 1";
+        };
+
+        "pulseaudio#microphone" = {
+          tooltip = false;
+          format = "{format_source}";
+          format-source = "󰍬 {volume}%";
+          format-source-muted = "󰍭";
+          on-click = "${pamixer} --default-source -t";
+          on-scroll-up = "${pamixer} --default-source -d 1";
+          on-scroll-down = "${pamixer} --default-source -i 1";
+        };
+      };
+    };
   };
 }
