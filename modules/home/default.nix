@@ -8,7 +8,7 @@
 
   imports = [
     ./alacritty
-    ./ags_setup.nix
+/*     ./ags_setup.nix */
     ./dev.nix
     ./emacs
     ./git
@@ -20,6 +20,7 @@
     ./starship
     ./gtk
     #./packages.nix
+    #./waybar
     ./zsh
     ./zathura
   ];

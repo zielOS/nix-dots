@@ -2,9 +2,9 @@
   description = "My NixOS configuration";
 
   inputs = {
-    ags.url = "github:Aylur/ags";
-    astal.url = "github:Aylur/astal";
-    matugen.url = "github:InioX/matugen";
+    # ags.url = "github:Aylur/ags";
+    # astal.url = "github:Aylur/astal";
+    # matugen.url = "github:InioX/matugen";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
@@ -47,12 +47,12 @@
   outputs = {self, nixpkgs, chaotic, home-manager, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-    asztal = pkgs.callPackage ./modules/ags { inherit inputs; };
+/*     asztal = pkgs.callPackage ./modules/ags { inherit inputs; }; */
   in {
     nixosConfigurations = import ./hosts inputs;
 
     packages.${system} = {
-      default = asztal;
+/*       default = asztal; */
       #catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
       #catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
       #catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
