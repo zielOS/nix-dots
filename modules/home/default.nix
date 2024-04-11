@@ -20,7 +20,7 @@
     ./starship
     ./tools
     ./gtk
-    #./packages.nix
+    ./texlive.nix
     ./waybar
     ./zsh
     ./zathura
