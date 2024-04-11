@@ -22,7 +22,10 @@ in
     terminal = false;
   };
 
-
+  imports = [
+     ./hypridle.nix
+    ./hyprlock.nix
+   ];
   home = { 
     packages = with pkgs; [ pyprland hyprshade hyprnome hypridle hyprlock ];
     file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
@@ -148,7 +151,7 @@ in
         ",Print,         ${e} -r 'recorder.screenshot()'"
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, alacritty" # xterm is a symlink, not actually xterm
-        "SUPER, B, exec, brave"
+        "SUPER, B, exec, firefox"
         "SUPER, T, exec, thunar"
         "SUPER, E, exec, emacsclient -c -a 'emacs'"
 

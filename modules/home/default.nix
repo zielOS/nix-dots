@@ -20,7 +20,7 @@
     ./starship
     ./gtk
     #./packages.nix
-    #./waybar
+    ./waybar
     ./zsh
     ./zathura
   ];

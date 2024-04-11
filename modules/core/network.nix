@@ -15,12 +15,15 @@
     };
   };
 
-  services.mullvad-vpn = {
-    enable = true;
-    enableExcludeWrapper = false;
-    package = pkgs.mullvad-vpn;
+
+  programs = {
+    nm-applet.enable = true;
   };
 
-  # slows down boot time
+  services = {
+    gnome.glib-networking.enable = true;
+    resolved.enable = true;
+  };
+
   systemd.services.NetworkManager-wait-online.enable = false;
 }
