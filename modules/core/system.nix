@@ -23,11 +23,11 @@
   programs.dconf.enable = true;
 
   # compress half of the ram to use as swap
-  # zramSwap = {
-  #   enable = true;
-  #   algorithm = "zstd";
-  #   #memoryPercent = 200;
-  # };
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    #memoryPercent = 200;
+  };
   
   environment.variables = {
     EDITOR = "lvim";

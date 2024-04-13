@@ -12,10 +12,17 @@
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-
       shellAliases = {
+        cl = "git clone";
+        g = "lazygit";
+        l = "lsd";
+        Rm = "sudo rm -rf";
         la = "lsd -a";
-        update = "sudo nixos-rebuild switch --flake .#workstation -I ~/nix-dots/";
+        fetch = "fastfetch";
+        v = "nvim";
+        nix-cl = "sudo nix-collect-garbage -d";
+        audit = "sudo lynis audit system";
+        nix-up = "sudo nixos-rebuild switch --flake .#workstation --upgrade";
       };
       history.size = 10000;
       history.path = "${config.xdg.dataHome}/zsh/history";

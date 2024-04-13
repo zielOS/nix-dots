@@ -7,13 +7,14 @@
       useTmpfs = false;
     };
     consoleLogLevel = 0;
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "audit=1"
       "apparmor=1" 
       "security=apparmor"
     ];
-    initrd.verbose = true;
+    initrd.verbose = false;
+    bootspec.enable = true;
     loader = {
       systemd-boot.enable = true;
       timeout = 5;

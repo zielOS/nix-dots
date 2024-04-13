@@ -5,6 +5,7 @@
 , cage
 , swww
 , bun
+, esbuild
 , dart-sass
 , fd
 , brightnessctl

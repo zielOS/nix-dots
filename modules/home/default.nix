@@ -16,7 +16,7 @@
     ./hyprland
     #./mako
     ./mpv
-    ./lvim
+    ./nvim
     ./starship
     ./tools
     ./gtk

@@ -27,7 +27,7 @@ in
     ./hyprlock.nix
    ];
   home = { 
-    packages = with pkgs; [ pyprland hyprshade hyprnome ];
+    packages = with pkgs; [ pyprland hyprshade hyprnome ianny ];
     file.".config/hypr/shaders/blue-light-filter.glsl".source  = ./blue-light-filter.glsl;
     file.".config/hypr/pyprland.json".source = ./pyprland.json;
   };
@@ -41,7 +41,7 @@ in
 
     settings = {
       exec-once = [
-        "ags"
+        "ags -b hypr"
         "nm-applet"
         "hyprctl setcursor Qogir 24"
         "insync start"
@@ -71,6 +71,7 @@ in
 	      focus_on_activate = true;
 	      no_direct_scanout = false;
         enable_swallow = true;
+        swallow_regex = "^(Alacritty|kitty|footclient)$";
         vfr = true;
         vrr = true;
       };
@@ -245,16 +246,16 @@ in
       };
 
       plugin = {
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          bg_col = "rgb(111111)";
-          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
+        # hyprexpo = {
+        #   columns = 3;
+        #   gap_size = 5;
+        #   bg_col = "rgb(111111)";
+        #   workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
-          enable_gesture = true; # laptop touchpad, 4 fingers
-          gesture_distance = 300; # how far is the "max"
-          gesture_positive = true; # positive = swipe down. Negative = swipe up.
-        };
+        #   enable_gesture = true; # laptop touchpad, 4 fingers
+        #   gesture_distance = 300; # how far is the "max"
+        #   gesture_positive = true; # positive = swipe down. Negative = swipe up.
+        # };
       };
     };
   };

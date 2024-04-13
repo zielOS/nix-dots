@@ -54,7 +54,6 @@
         xwayland
       ];
     };
-    ckb-next.enable = true;
   };
 
   xdg.portal = {
