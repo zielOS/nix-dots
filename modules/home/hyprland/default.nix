@@ -37,7 +37,7 @@ in
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    # plugins = with plugins; [ hyprbars borderspp ];
+#    plugins = with plugins; [ hyprexpo ];
 
     settings = {
       exec-once = [
@@ -151,7 +151,7 @@ in
         ",Print,         ${e} -r 'recorder.screenshot()'"
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, alacritty" # xterm is a symlink, not actually xterm
-        "SUPER, B, exec, firefox"
+        "SUPER, B, exec, brave"
         "SUPER, T, exec, thunar"
         "SUPER, E, exec, emacsclient -c -a 'emacs'"
 
@@ -245,18 +245,15 @@ in
       };
 
       plugin = {
-        hyprbars = {
-          bar_color = "rgb(2a2a2a)";
-          bar_height = 28;
-          col_text = "rgba(ffffffdd)";
-          bar_text_size = 11;
-          bar_text_font = "Ubuntu Nerd Font";
+        hyprexpo = {
+          columns = 3;
+          gap_size = 5;
+          bg_col = "rgb(111111)";
+          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
-          buttons = {
-            button_size = 0;
-            "col.maximize" = "rgba(ffffff11)";
-            "col.close" = "rgba(ff111133)";
-          };
+          enable_gesture = true; # laptop touchpad, 4 fingers
+          gesture_distance = 300; # how far is the "max"
+          gesture_positive = true; # positive = swipe down. Negative = swipe up.
         };
       };
     };

@@ -78,7 +78,6 @@ in {
     nvidia-vaapi-driver
     tealdeer
     tree
-    sage
     openssl
     cmake
     gnumake
@@ -92,10 +91,7 @@ in {
     lsd
     git
     cached-nix-shell 
-    typescript
     fzf
-    nodejs
-    cargo
     lynis
     unzip
     ripgrep
@@ -109,7 +105,6 @@ in {
     networkmanagerapplet
     lm_sensors
     catppuccin-gtk
-    nodejs
     lynis
     lsd
     btop
