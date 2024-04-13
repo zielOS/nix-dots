@@ -11,7 +11,16 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     hyprland.url = "github:hyprwm/Hyprland/";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    Hyprspace = {
+      url = github:KZDKM/Hyprspace;
+      inputs.hyprland.follows = "hyprland";
+    };
+
     hypridle.url = "github:hyprwm/hypridle";
     hyprlock.url = "github:hyprwm/hyprlock";
     nur.url = "github:nix-community/NUR";

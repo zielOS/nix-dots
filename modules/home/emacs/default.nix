@@ -12,8 +12,8 @@
   # home.file.".emacs.d/init.el".source = ./init.el;
   # home.file.".emacs.d/art/".source = ./art;
 
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs29-pgtk;
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   package = pkgs.emacs29-pgtk;
+  # };
 }

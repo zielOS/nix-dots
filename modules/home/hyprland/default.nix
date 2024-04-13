@@ -23,7 +23,7 @@ in
   };
 
   imports = [
-     ./hypridle.nix
+    ./hypridle.nix
     ./hyprlock.nix
    ];
   home = { 
@@ -37,7 +37,7 @@ in
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-#    plugins = with plugins; [ hyprexpo ];
+    plugins = with plugins; [ hyprexpo inputs.Hyprspace.packages.${pkgs.system}.Hyprspace ];
 
     settings = {
       exec-once = [
@@ -145,7 +145,6 @@ in
       in [
         "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
         "SUPER, D,       ${e} -t applauncher"
-        "SUPER, Tab,     ${e} -t overview"
         ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
         ",XF86Launch4,   ${e} -r 'recorder.start()'"
         ",Print,         ${e} -r 'recorder.screenshot()'"
@@ -171,6 +170,7 @@ in
         "CTRL_ALT, right, exec, hyprnome"
         "SUPER_CTRL_ALT, left, exec, hyprnome --previous --move"
         "SUPER_CTRL_ALT, right, exec, hyprnome --move"
+        "SUPER, Tab, overview:toggle"
 
         (mvfocus "up" "u")
         (mvfocus "down" "d")
