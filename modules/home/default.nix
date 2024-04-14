@@ -8,6 +8,7 @@
 
   imports = [
     ./alacritty
+    ./anyrun
     ./ags_setup.nix
     ./dev.nix
     ./emacs
