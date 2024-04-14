@@ -22,7 +22,7 @@
         v = "nvim";
         nix-cl = "sudo nix-collect-garbage -d";
         audit = "sudo lynis audit system";
-        nix-up = "sudo nixos-rebuild switch --flake .#workstation --upgrade";
+        nix-up = "sudo nixos-rebuild switch --flake .#zephyrus --upgrade";
       };
       history.size = 10000;
       history.path = "${config.xdg.dataHome}/zsh/history";

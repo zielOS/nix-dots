@@ -18,3 +18,20 @@
           '';
     } ];
 }
+{
+  nixpkgs = {
+    overlays = [
+      (self: super: {
+        linuxZenWMuQSS = pkgs.linuxPackagesFor (pkgs.linux_zen.kernel.override {
+          structuredExtraConfig = with lib.kernel; {
+            DEFAULT_SECURITY_APPARMOR = yes;
+            CC_OPTIMIZE_FOR_PERFORMANCE = yes;
+            CPU_FREQ_DEFAULT_GOV_PERFORMANCE =yes;
+            CPU_FREQ_GOV_PERFORMANCE = yes;           
+          };
+          ignoreConfigErrors = true;
+        });
+      })
+    ];
+  };
+}

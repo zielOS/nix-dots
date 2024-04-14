@@ -7,7 +7,7 @@
       useTmpfs = false;
     };
     consoleLogLevel = 0;
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
       "audit=1"
       "apparmor=1" 
