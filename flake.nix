@@ -58,7 +58,7 @@
 /*     emacs-overlay.url = "github:nix-community/emacs-overlay"; */
 
   };
-  outputs = {self, nixpkgs, chaotic, home-manager, ...} @ inputs: let
+  outputs = {self, nixpkgs, chaotic, home-manager, anyrun, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };

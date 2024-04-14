@@ -2,11 +2,10 @@
   config,
   inputs,
   pkgs,
+  anyrun,
   ...
 }: 
-let 
-  anyrun = inputs.anyrun.packages.${pkgs.system}.anyrun;
-in {
+{
   programs.anyrun = {
     enable = true;
     config = {

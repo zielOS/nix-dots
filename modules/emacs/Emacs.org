@@ -881,6 +881,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
 
 #+begin_src emacs-lisp
 (use-package org
+  :pin org
   :commands (org-capture org-agenda)
   :config
   (setq org-ellipsis " ▾")
@@ -1129,12 +1130,6 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 
 * SAVEHIST
 
-#+begin_src emacs-lisp
-(use-package savehist
-  :ensure t
-  :init
-  (savehist-mode))
-#+end_src
 
 * TERMINALS
 ** Vterm
