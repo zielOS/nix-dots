@@ -3,6 +3,10 @@
 
   inputs = {
     ags.url = "github:Aylur/ags";
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     astal.url = "github:Aylur/astal";
     matugen.url = "github:InioX/matugen";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
