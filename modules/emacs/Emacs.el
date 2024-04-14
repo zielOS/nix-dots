@@ -1,11 +1,3 @@
-#+title: Emacs Configuration
-#+PROPERTY: header-args:emacs-lisp :tangle yes  :mkdirp yes
-#+STARTUP: overview
-
-* STUFF TO LOAD FIRST
-** Startup Performance
-
-#+begin_src emacs-lisp
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -17,12 +9,6 @@
            gcs-done))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
-#+end_src
-
-
-** keep folders clean
-
-#+begin_src emacs-lisp
 
 ;; note: if you want to move everything out of the ~/.emacs.d folder
 ;; reliably, set `user-emacs-directory` before loading no-littering!
@@ -34,17 +20,8 @@
   (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
-#+end_src
-
-** Disable nativecomp warnings
-
-#+begin_src emacs-lisp
 (setq native-comp-async-report-warnings-errors nil)
-#+end_src
 
-* ALL THE ICONS
-
-#+begin_src emacs-lisp
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -52,18 +29,9 @@
 (use-package all-the-icons-dired
   :ensure t
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-#+end_src
 
-
-* BACKUP
-
-#+begin_src emacs-lisp
 (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
-#+end_src
 
-* BETTER DEFAULTS
-
-#+begin_src emacs-lisp
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -101,11 +69,7 @@
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
 (setq auto-save-visited-mode t)
-#+end_src
 
-* CAPE
-
-#+begin_src emacs-lisp
 (use-package cape
   :ensure t
   :init 
@@ -121,28 +85,14 @@
                 corfu-auto nil)
     (corfu-mode))
   (add-hook 'eshell-mode-hook #'crafted-completion-corfu-eshell))
-#+end_src
 
-#+RESULTS:
-
-* CONSULT
-
-Consult provides search and navigation commands based on the Emacs completion function completing-read. Completion allows you to quickly select an item from a list of candidates. Consult offers asynchronous and interactive consult-grep and consult-ripgrep commands, and the line-based search command consult-line
-
-#+begin_src emacs-lisp
 (use-package consult
   :ensure t 
   :init
   (setq completion-in-region-function #'consult-completion-in-region)
   (keymap-global-set "C-s" 'consult-line)
   (keymap-set minibuffer-local-map "C-r" 'consult-history))
-#+end_src
 
-#+RESULTS:
-
-* CORFU
-
-#+begin_src emacs-lisp
 (use-package corfu
   :ensure t
   :custom
@@ -159,16 +109,7 @@ Consult provides search and navigation commands based on the Emacs completion fu
         ([backtab] . corfu-previous))
   :init
   (global-corfu-mode))
-#+end_src
 
-#+RESULTS:
-: corfu-previous
-
-* DASHBOARD
-
-An extensible emacs startup screen showing you what’s most important.
-
-#+begin_src emacs-lisp
 (use-package dashboard
   :ensure t
   :init
@@ -189,20 +130,10 @@ An extensible emacs startup screen showing you what’s most important.
 				      (bookmarks . "book")))
   :config
   (dashboard-setup-startup-hook))
-#+end_src
 
-* DIMINISH
-
-This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
-
-#+begin_src emacs-lisp
 (use-package diminish
   :ensure t)
-#+end_src
 
-* DIRED
-
-#+begin_src emacs-lisp
 (use-package dired-open
   :ensure t
   :config
@@ -240,14 +171,6 @@ This package implements hiding or abbreviation of the modeline displays (lighter
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-use-custom-font t))
 
-#+end_src
-
-#+RESULTS:
-: t
-
-* DIRVISH
-
-#+begin_src emacs-lisp
 (use-package dirvish
   :ensure t
   :init
@@ -288,39 +211,16 @@ This package implements hiding or abbreviation of the modeline displays (lighter
    ("M-s" . dirvish-setup-menu)
    ("M-e" . dirvish-emerge-menu)
    ("M-j" . dirvish-fd-jump)))
-#+end_src
 
-* DRAG-STUFF
-[[https://github.com/rejeep/drag-stuff.el][Drag Stuff]] is a minor mode for Emacs that makes it possible to drag stuff (words, region, lines) around in Emacs.  When 'drag-stuff-define-keys' is enabled, then the following keybindings are set: M-up, M-down, M-left, and M-right.
-
-#+begin_src emacs-lisp
 (use-package drag-stuff
   :ensure t
   :init
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
-#+end_src
 
-* EGLOT
-
-#+begin_src emacs-lisp
 (use-package eglot
   :ensure t)
-#+end_src
 
-
-(with-eval-after-load 'eglot
-  (setq completion-category-defaults nil))
-
-#+end_src
-
-#+RESULTS:
-
-* EMBARK
-
-Embark makes it easy to choose a command to run based on what is near point, both during a minibuffer completion session (in a way familiar to Helm or Counsel users) and in normal buffers. Bind the command embark-act to a key and it acts like prefix-key for a keymap of actions (commands) relevant to the target around point.
-
-#+begin_src emacs-lisp
 (use-package embark
   :ensure t
 
@@ -352,12 +252,6 @@ Embark makes it easy to choose a command to run based on what is near point, bot
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-#+end_src
-
-* EVIL
-[[https://github.com/emacs-evil/evil][Evil]] is an extensible vi/vim layer for Emacs.  Because...let's face it.  The Vim keybindings are just plain better.
-
-#+begin_src emacs-lisp
 (defun efs/evil-hook ()
   (dolist (mode '(custom-mode
                   eshell-mode
@@ -399,61 +293,35 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 ;; Setting RETURN key in org-mode to follow links
   (setq org-return-follows-link  t)
 
-#+end_src
+(defun efs/set-font-faces ()
+  (message "Setting faces!")
+  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 135)
 
-* FONTS
-Defining the various fonts that Emacs will use.
+  ;; Set the fixed pitch face
+  (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono Nerd Font" :height 135)
 
-** Setting the Font Face
+  ;; Set the variable pitch face
+  (set-face-attribute 'variable-pitch nil :font "JetBrainsMono Nerd Font" :height 135 :weight 'regular))
 
-#+begin_src emacs-lisp
-  (defun efs/set-font-faces ()
-    (message "Setting faces!")
-    (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 135)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (setq doom-modeline-icon t)
+                (with-selected-frame frame
+                  (efs/set-font-faces))))
+  (efs/set-font-faces))
 
-    ;; Set the fixed pitch face
-    (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono Nerd Font" :height 135)
-
-    ;; Set the variable pitch face
-    (set-face-attribute 'variable-pitch nil :font "JetBrainsMono Nerd Font" :height 135 :weight 'regular))
-
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (setq doom-modeline-icon t)
-                  (with-selected-frame frame
-                    (efs/set-font-faces))))
-    (efs/set-font-faces))
-
-#+end_src
-
-** Zooming In/Out
-
-You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTRL plus the mouse wheel for zooming in/out.
-
-#+begin_src emacs-lisp
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-#+end_src
 
-* FLYCHECK
-Install =luacheck= from your Linux distro's repositories for flycheck to work correctly with lua files.  Install =python-pylint= for flycheck to work with python files.  Haskell works with flycheck as long as =haskell-ghc= or =haskell-stack-ghc= is installed.  For more information on language support for flycheck, [[https://www.flycheck.org/en/latest/languages.html][read this]].
-
-#+begin_src emacs-lisp
 (use-package flycheck
   :ensure t
   :defer t
   :diminish
   :init (global-flycheck-mode))
 
-#+end_src
-
-* GENERAL KEYBINDINGS
-** General
-
-#+begin_src emacs-lisp
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -468,22 +336,14 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
     :keymaps 'override
     :prefix "SPC" ;; set leader
     :global-prefix "M-SPC") ;; access leader in insert mode
-#+end_src
 
-** Basic Stuff
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "SPC" '(execute-extended-command :wk "M-x")
  "f f" '(find-file :wk "find file")
   "=" '(perspective-map :wk "perspective") ;; lists all the perspective keybindings
  "/" '(comment-line :wk "comment lines")
  "u" '(universal-argument :wk "universal argument"))
-#+end_src
 
-** Bookmarks/Buffers
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "b" '(:ignore t :wk "Bookmarks/Buffers")
  "b b" '(switch-to-buffer :wk "Switch to buffer")
@@ -502,11 +362,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "b s" '(basic-save-buffer :wk "Save buffer")
  "b S" '(save-some-buffers :wk "Save multiple buffers")
  "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-#+end_src
 
-** Dired
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "d" '(:ignore t :wk "Dired")
  "d e" '(dirvish-side :wk "Toggle dired sidebar")
@@ -516,11 +372,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "d n" '(neotree-dir :wk "Open directory in neotree")
  "d p" '(peep-dired :wk "Peep-dired")
  "d w" '(wdired-change-to-wdired-mode :wk "Writable dired"))
-#+end_src
 
-** Ediff/Eshell/Eval
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "e" '(:ignore t :wk "Ediff/Eshell/Eval/EWW")
  "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
@@ -533,11 +385,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "e r" '(eval-region :wk "Evaluate elisp in region")
  "e R" '(eww-reload :which-key "Reload current page in EWW")
  "e s" '(eshell :which-key "Eshell"))
-#+end_src
 
-** Files
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "f" '(:ignore t :wk "Files")
  "f c" '((lambda () (interactive)
@@ -556,11 +404,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "f r" '(counsel-recentf :wk "Find recent files")
  "f u" '(sudo-edit-find-file :wk "Sudo find file")
  "f U" '(sudo-edit :wk "Sudo edit file"))
-#+end_src
 
-** Help
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "h" '(:ignore t :wk "Help")
  "h a" '(counsel-apropos :wk "Apropos")
@@ -594,11 +438,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "h v" '(describe-variable :wk "Describe variable")
  "h w" '(where-is :wk "Prints keybinding for command if set")
  "h x" '(describe-command :wk "Display full documentation for command"))
-#+end_src
 
-** Org
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "m" '(:ignore t :wk "Org")
  "m a" '(org-agenda :wk "Org agenda")
@@ -611,30 +451,18 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
 (efs/leader-keys
  "m d" '(:ignore t :wk "Date/deadline")
  "m d t" '(org-time-stamp :wk "Org time stamp"))
-#+end_src
 
-** Open
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "o" '(:ignore t :wk "Open")
  "o d" '(dashboard-open :wk "Dashboard")
  "o f" '(make-frame :wk "Open buffer in new frame")
  "o F" '(select-frame-by-name :wk "Select frame by name"))
-#+end_src
 
-** Projectile
-
-#+begin_src emacs-lisp
 ;; projectile-command-map already has a ton of bindings
 ;; set for us, so no need to specify each individually.
 (efs/leader-keys
  "p" '(projectile-command-map :wk "Projectile"))
-#+end_src
 
-** Search
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "s" '(:ignore t :wk "Search")
  "s d" '(dictionary-search :wk "Search dictionary")
@@ -642,11 +470,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "s o" '(pdf-occur :wk "Pdf search lines matching STRING")
  "s t" '(tldr :wk "Lookup TLDR docs for a command")
  "s w" '(woman :wk "Similar to man but doesn't require man"))
-#+end_src
 
-** Toggle
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "t" '(:ignore t :wk "Toggle")
  "t e" '(eshell-toggle :wk "Toggle eshell")
@@ -657,11 +481,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "t r" '(rainbow-mode :wk "Toggle rainbow mode")
  "t t" '(visual-line-mode :wk "Toggle truncated lines")
  "t v" '(vterm-toggle :wk "Toggle vterm"))
-#+end_src
 
-** Windows/Words
-
-#+begin_src emacs-lisp
 (efs/leader-keys
  "w" '(:ignore t :wk "Windows/Words")
  ;; Window splits
@@ -685,14 +505,7 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
  "w u" '(upcase-word :wk "Upcase word")
  "w =" '(count-words :wk "Count words/lines for buffer"))
 )
-#+end_src
 
-* GIT PROGRAMS
-** Git Time Machine
-[[https://github.com/emacsmirror/git-timemachine][git-timemachine]] is a program that allows you to move backwards and forwards through a file's commits.  'SPC g t' will open the time machine on a file if it is in a git repo.  Then, while in normal mode, you can use 'CTRL-j' and 'CTRL-k' to move backwards and forwards through the commits.
-
-
-#+begin_src emacs-lisp
 (use-package git-timemachine
   :ensure t
   :after git-timemachine
@@ -701,20 +514,10 @@ Install =luacheck= from your Linux distro's repositories for flycheck to work co
     (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
     (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision)
 )
-#+end_src
 
-** Magit
-[[https://magit.vc/manual/][Magit]] is a full-featured git client for Emacs.
-
-#+begin_src emacs-lisp
 (use-package magit
   :ensure t)
-#+end_src
 
-* HIGHLIGHT
-Adding highlights to TODO and related words.
-
-#+begin_src emacs-lisp
 (use-package hl-todo
   :ensure t
   :hook ((org-mode . hl-todo-mode)
@@ -728,48 +531,12 @@ Adding highlights to TODO and related words.
           ("REVIEW"     font-lock-keyword-face bold)
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
-#+end_src
 
-* INDENT
-
-#+begin_src emacs-lisp
 (use-package aggressive-indent
   :ensure t
   :hook ((nix-mode . aggressive-indent-mode)
 	 (python-mode . aggressive-indent-mode)))
-#+end_src
 
-#+RESULTS:
-| aggressive-indent-mode | evil-collection-python-set-evil-shift-width | doom-modeline-env-setup-python |
-
-* JUPYTER
-
-(with-eval-after-load 'jupyter
-  (setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
-(setq org-babel-default-header-args:jupyter-python
-      '((:results . "both")
-	;; This seems to lead to buffer specific sessions!
-	(:session . (lambda () (buffer-file-name)))
-	(:pandoc . "t")
-	(:exports . "both")
-	(:cache .   "no")
-	(:noweb . "no")
-	(:hlines . "no")
-	(:tangle . "no")
-	(:eval . "never-export")))
-
-(defalias 'org-babel-execute:ipython 'org-babel-execute:jupyter-python)
-(setq org-babel-default-header-args:ipython org-babel-default-header-args:jupyter-python))
-
-
-#+end_src
-
-#+RESULTS:
-: ((:results . both) (:session lambda nil (buffer-file-name)) (:kernel . python3) (:pandoc . t) (:exports . both) (:cache . no) (:noweb . no) (:hlines . no) (:tangle . no) (:eval . never-export))
-
-* LINE NUMBERS
-
-#+begin_src emacs-lisp
 (global-display-line-numbers-mode -1)
 
 (setq-default display-line-numbers-grow-only t
@@ -779,20 +546,12 @@ Adding highlights to TODO and related words.
 (dolist (mode '(prog-mode-hook
                 conf-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode t))))
-#+end_src
 
-* MARKDOWN
-
-#+begin_src emacs-lisp
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
-#+end_src
 
-* MARGINALIA
-
-#+begin_src emacs-lisp
 (use-package marginalia
   :after vertico
   :ensure t
@@ -802,15 +561,7 @@ Adding highlights to TODO and related words.
   (marginalia-mode 1))
 
 (ensure-use-package 'nerd-icons-completion)
-#+end_src
 
-#+RESULTS:
-: t
-
-* MODELINE
-The modeline is the bottom status bar that appears in Emacs windows.  While you can create your own custom modeline, why go to the trouble when Doom Emacs already has a nice modeline package available.  For more information on what is available to configure in the Doom modeline, check out: [[https://github.com/seagle0128/doom-modeline][Doom Modeline]]
-
-#+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
@@ -820,19 +571,10 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
         doom-modeline-persp-name t   ;; adds perspective name to modeline
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
-#+end_src
-
-* NIX
-
-#+begin_src emacs-lisp
 (use-package nix-mode
   :ensure t
   :mode "\\.nix\\'")
-#+end_src
 
-* ORDERLESS
-
-#+begin_src emacs-lisp
 (use-package orderless
   :ensure t
   :custom
@@ -840,12 +582,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
   (completion-category-defaults nil)
   (completion-category-overrides
    '((file (styles partial-completion)))))
-#+end_src
 
-* ORG
-** fonts
-
-#+begin_src emacs-lisp
 (defun efs/org-font-setup ()
   ;; Replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
@@ -875,11 +612,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
   (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
   (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
   (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
-#+end_src
 
-** setup
-
-#+begin_src emacs-lisp
 (use-package org
   :pin org
   :commands (org-capture org-agenda)
@@ -996,21 +729,12 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
 
 )
 
-#+end_src
-
-** org-bullets
-
-#+begin_src emacs-lisp
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-#+end_src
 
-** org-babel
-
-#+begin_src emacs-lisp
 (setq org-confirm-babel-evaluate nil
       org-confirm-elisp-link-function nil
       org-link-shell-confirm-function nil)
@@ -1028,11 +752,6 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
-#+end_src
-
-** org-tempo
-
-#+begin_src emacs-lisp
 (with-eval-after-load 'org
   ;; This is needed as of Org 9.2
   (require 'org-tempo)
@@ -1040,14 +759,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src jupyter-python")))
-#+end_src
 
-#+RESULTS:
-: ((py . src jupyter-python) (py . src python) (el . src emacs-lisp) (sh . src shell) (a . export ascii) (c . center) (C . comment) (e . example) (E . export) (h . export html) (l . export latex) (q . quote) (s . src) (v . verse))
-
-** auto-tangle
-
-#+begin_src emacs-lisp
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun efs/org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
@@ -1057,20 +769,11 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
-#+end_src
 
-** misc
-
-#+begin_src emacs-lisp
 (setq org-src-preserve-indentation t)
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
-#+end_src
 
-* PDFs
-[[https://github.com/vedang/pdf-tools][pdf-tools]] is a replacement of DocView for viewing PDF files inside Emacs.  It uses the =poppler= library, which also means that 'pdf-tools' can by used to modify PDFs.  I use to disable 'display-line-numbers-mode' in 'pdf-view-mode' because line numbers crash it.
-
-#+begin_src emacs-lisp
 (use-package pdf-tools
   :ensure t
   :defer t
@@ -1085,68 +788,31 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
   :config (add-to-list 'revert-without-query ".pdf"))
 
 (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
-#+end_src
 
-* PROJECTILE
-[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.  It should be noted that many projectile commands do not work if you have set "fish" as the "shell-file-name" for Emacs.  I had initially set "fish" as the "shell-file-name" in the Vterm section of this config, but oddly enough I changed it to "bin/sh" and projectile now works as expected, and Vterm still uses "fish" because my default user "sh" on my Linux system is "fish".
-
-#+begin_src emacs-lisp
 (use-package projectile
   :ensure t
   :config
   (projectile-mode 1))
-#+end_src
 
-* PYTHON
-
-#+begin_src emacs-lisp
 (use-package elpy
   :ensure t)
-#+end_src
 
-#+RESULTS:
-
-* RAINBOW DELIMITERS
-Adding rainbow coloring to parentheses.
-
-#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
   :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
          (clojure-mode . rainbow-delimiters-mode)))
 
-#+end_src
-
-* RAINBOW
-
-Display the actual color as a background for any hex color value (ex. #ffffff).  The code block below enables rainbow-mode in all programming modes (prog-mode) as well as org-mode, which is why rainbow works in this document.
-
-#+begin_src emacs-lisp
 (use-package rainbow-mode
   :ensure t
   :diminish
   :hook org-mode prog-mode)
-#+end_src
 
-* SAVEHIST
-
-
-* TERMINALS
-** Vterm
-Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.  By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if you prefer.
-
-#+begin_src emacs-lisp
 (use-package vterm
   :ensure t
   :config
   (setq shell-file-name "/usr/bin/zsh"
         vterm-max-scrollback 5000))
-#+end_src
 
-** Vterm-Toggle
-[[https://github.com/jixiuf/vterm-toggle][vterm-toggle]] toggles between the vterm buffer and whatever buffer you are editing.
-
-#+begin_src emacs-lisp
 (use-package vterm-toggle
   :ensure t
   :after vterm
@@ -1169,22 +835,14 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
                   ;;(dedicated . t) ;dedicated is supported in emacs27
                   (reusable-frames . visible)
                   (window-height . 0.4))))
-#+end_src
 
-* THEME
-
-#+begin_src emacs-lisp
 (use-package catppuccin-theme
   :ensure t)
 (load-theme 'catppuccin :no-confirm)
 (catppuccin-set-color 'base "#1E1E2E") ;; change base to #000000 for the currently active flavor
 (catppuccin-set-color 'crust "#11111B" 'mocha) ;; change crust to #222222 for frappe
 (catppuccin-reload)
-#+end_src
 
-* TYPESCRIPT
-
-#+begin_src emacs-lisp
 (use-package tide
   :ensure t
   :after (company flycheck)
@@ -1192,13 +850,7 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
-#+end_src
 
-#+RESULTS:
-
-* VERTICO
-
-#+begin_src emacs-lisp
 (use-package vertico
   :ensure t
   :bind (:map vertico-map
@@ -1211,11 +863,7 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
   (vertico-cycle t)
   :init
   (vertico-mode))
-#+end_src
 
-* WHICH-KEY
-
-#+begin_src emacs-lisp
 (use-package which-key
   :ensure t
   :init
@@ -1235,13 +883,6 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
     which-key-max-description-length 25
     which-key-allow-imprecise-window-fit nil
     which-key-separator " → " ))
-#+end_src
 
-* Runtime Performance
-
-Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
-
-#+begin_src emacs-lisp
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-#+end_src

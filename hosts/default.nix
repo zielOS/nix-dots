@@ -64,7 +64,7 @@ in {
         wayland
         hmModule
         laptop
-        
+        emacs 
         {inherit home-manager;}
       ]
       ++shared;

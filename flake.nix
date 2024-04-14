@@ -54,11 +54,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
-
-/*     emacs-overlay.url = "github:nix-community/emacs-overlay"; */
+    
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
-  outputs = {self, nixpkgs, chaotic, home-manager, anyrun, ...} @ inputs: let
+  outputs = { self, nixpkgs, chaotic, home-manager, anyrun, emacs-overlay, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };

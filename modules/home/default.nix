@@ -16,7 +16,7 @@
     #./anyrun
     ./ags_setup.nix
     ./dev.nix
-    ./emacs
+    #./emacs
     ./git
     ./gtk 
     ./hyprland
@@ -27,7 +27,6 @@
     ./tools
     ./gtk
     ./texlive
-/*     ./waybar */
     ./zsh
     ./zathura
   ];
