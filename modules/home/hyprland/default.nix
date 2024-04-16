@@ -37,7 +37,7 @@ in
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    plugins = with plugins; [ hyprexpo inputs.Hyprspace.packages.${pkgs.system}.Hyprspace ];
+    plugins = with plugins; [ inputs.Hyprspace.packages.${pkgs.system}.Hyprspace ];
 
     settings = {
       exec-once = [

@@ -1,4 +1,4 @@
-{ config, pkgs, fastStdenv, ... }:
+{config, pkgs, fastStdenv, ... }:
 
 let
   # pkgs = import <nixpkgs> {

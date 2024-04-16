@@ -15,7 +15,7 @@
 
     backgrounds = [
       {
-        path = "";
+        path = "./wallpaper.png";
         color = "rgba(0, 0, 0, 0.5)";
 
         # Blur

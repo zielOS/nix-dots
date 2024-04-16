@@ -801,7 +801,6 @@ Adding highlights to TODO and related words.
   :init
   (marginalia-mode 1))
 
-(ensure-use-package 'nerd-icons-completion)
 #+end_src
 
 #+RESULTS:

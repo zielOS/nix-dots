@@ -8,7 +8,7 @@
       #     they're being parsed in nix, which lacks unicode
       #     support.
       # config = ./emacs.org;
-      package = pkgs.emacs-git;
+      package = pkgs.emacs-pgtk;
       config = ./Emacs.el;
      defaultInitFile = true;
 
@@ -31,11 +31,15 @@
       alwaysTangle = false;
 
       # Optionally provide extra packages not in the configuration file.
-      # extraEmacsPackages = epkgs: [
-      #   epkgs.jupyter
-      #   epkgs.ob-async
-      #   epkgs.catppuccin-theme
-      # ];
+      extraEmacsPackages = epkgs: [
+        # epkgs.jupyter
+        # epkgs.ob-async
+        epkgs.catppuccin-theme
+        epkgs.use-package
+        epkgs.nerd-icons-completion
+        epkgs.diminish
+        
+      ];
 
       # Optionally override derivations.
       # override = final: prev: {
@@ -45,6 +49,5 @@
       # };
     })
   ];
-  services.emacs.enable = true;
 
 }

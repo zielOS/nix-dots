@@ -131,8 +131,6 @@
   :config
   (dashboard-setup-startup-hook))
 
-(use-package diminish
-  :ensure t)
 
 (use-package dired-open
   :ensure t
@@ -559,8 +557,6 @@
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
   (marginalia-mode 1))
-
-(ensure-use-package 'nerd-icons-completion)
 
 (use-package doom-modeline
   :ensure t

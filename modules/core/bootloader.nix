@@ -10,8 +10,7 @@
     kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
       "audit=1"
-      "apparmor=1" 
-      "security=apparmor"
+      "security=selinux"
     ];
     initrd.verbose = false;
     bootspec.enable = true;
