@@ -1,6 +1,6 @@
 cfdisk /dev/nvme0n1
 
-cryptsetup --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2 && cryptsetup config /dev/nvme0n1p2 --label cryptroot && cryptsetup luksOpen /dev/nvme0n1p2 enc-pv &&
+cryptsetup --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2 && cryptsetup config /dev/nvme0n1p2 --label cryptroot && cryptsetup luksOpen /dev/nvme0n1p2 enc-pv
 
 pvcreate /dev/mapper/enc-pv && vgcreate vg /dev/mapper/enc-pv && lvcreate -L 8G -n swap vg && lvcreate -l '100%FREE' -n root vg
 
@@ -13,6 +13,3 @@ mount -o noatime,compress=zstd,space_cache=v2,ssd,discard=async,subvol=@ /dev/vg
 mkdir -p /mnt/boot && mount /dev/nvme0n1p1 /mnt/boot
 
 sudo nixos-generate-config --root /mnt
-
-nixos-install --flake https://github.com/bara/myflake_repo#somehost
-
