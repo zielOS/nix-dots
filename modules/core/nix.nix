@@ -83,8 +83,8 @@
     overlays = with inputs; [
       rust-overlay.overlays.default
       nur.overlay
-      emacs-overlay.overlay 
-      #inputs.nix-doom-emacs.overlay
+      emacs.overlay 
+      nix-doom-emacs
     ];
 
     # hostPlatform = { 
