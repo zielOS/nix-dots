@@ -55,10 +55,10 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
     
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # emacs-overlay = {
+    #   url = "github:nix-community/emacs-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
   };
   outputs = { self, nixpkgs, chaotic, home-manager, anyrun, emacs-overlay, ...} @ inputs: let

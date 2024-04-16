@@ -4,7 +4,7 @@ let
   inputs = self.inputs;
   bootloader = ../modules/core/bootloader.nix;
   core = ../modules/core;
-  emacs = ../modules/emacs;
+  #emacs = ../modules/emacs;
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
   laptop = nixos-hardware.nixosModules.asus-zephyrus-ga401;
@@ -64,7 +64,7 @@ in {
         wayland
         hmModule
         laptop
-        emacs 
+        #emacs 
         {inherit home-manager;}
       ]
       ++shared;
