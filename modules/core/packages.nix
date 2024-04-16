@@ -108,6 +108,7 @@ in {
     lynis
     lsd
     btop
+    gh
   ];
 
 }

@@ -59,8 +59,11 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
+    nix-doom-emacs = {
+      url = "github:nix-community/nix-doom-emacs";
+      inputs.emacs.follows = "emacs";
+    };
   };
   outputs = { 
     self, 
