@@ -1,10 +1,7 @@
-{ config, nixpkgs, nix-doom-emacs, doom_emacs, ... }:
+{inputs, ...}: {
+  imports = [ nix-doom-emacs.hmModule ];
 
-{
   programs.doom-emacs = {
-    enable = true;
-
+    enable = true
   };
-
-
 }

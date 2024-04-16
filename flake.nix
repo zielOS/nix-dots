@@ -55,13 +55,25 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
     
-    # emacs-overlay = {
-    #   url = "github:nix-community/emacs-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    emacs = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.flake = true;
 
   };
-  outputs = { self, nixpkgs, chaotic, home-manager, anyrun, emacs-overlay, ...} @ inputs: let
+  outputs = { 
+    self, 
+    nixpkgs, 
+    chaotic, 
+    home-manager, 
+    anyrun, 
+    emacs, 
+    nix-doom-emacs, 
+    ...
+
+    } @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     asztal = pkgs.callPackage ./modules/ags { inherit inputs; };

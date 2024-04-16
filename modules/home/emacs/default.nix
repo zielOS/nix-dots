@@ -13,7 +13,7 @@
   # home.file.".emacs.d/art/".source = ./art;
 
   services.emacs = {
-    enable = true;
+    enable = false;
     package = pkgs.emacs29-pgtk;
   };
 }

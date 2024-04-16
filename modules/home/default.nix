@@ -16,7 +16,8 @@
     #./anyrun
     ./ags_setup.nix
     ./dev.nix
-    #./emacs
+    ./doom
+    ./emacs
     ./git
     ./gtk 
     ./hyprland
